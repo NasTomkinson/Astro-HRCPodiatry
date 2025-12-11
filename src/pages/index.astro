@@ -1,16 +1,19 @@
 ---
+import GenericLayout from "@/layouts/generic.astro"
 
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<GenericLayout>
+	<section>
+		<div class="container flex flex-col gap-4 py-8"> 
+			<h1> Headings should look like this </h1>
+			<h2> Headings should look like this </h2>
+			<h3> Headings should look like this </h3>
+			<h4> Headings should look like this </h4>
+			<h5> Headings should look like this </h5>
+			<h6> Headings should look like this </h6>
+			<p>This is the default starter template for Astro.</p>
+			<p> This is some text with a <a href="#">link</a> in it.</p>
+		</div>
+	</section>
+</GenericLayout>

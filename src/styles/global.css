@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-main: "Poppins", sans-serif;
+  --color-*: initial;
+  --color-primary: oklch(0.78 0.1338 99.78);
+  --color-primary-light: oklch(0.88 0.073 99.78);
+  --color-primary-dark: oklch(0.68 0.112 99.78);
+  --color-primary-text: oklch(0.1448 0 89.88);
+  --color-white: oklch(1 0 89.88);
+  --color-neutral-dark: oklch(14.5% 0 0);
+  --color-neutral-light: oklch(92.2% 0 0);
+  --color-neutral: oklch(70.8% 0 0);
+  --color-utility-error: oklch(57.7% 0.245 27.325);
+  --color-utility-warning: oklch(66.6% 0.179 58.318);
+  --color-utility-success: oklch(62.7% 0.194 149.214);
+}
+
+* {
+  @apply font-main;
+}
+
+button,
+.button {
+  @apply rounded px-4 py-2 font-semibold transition-all;
+
+  &.primary {
+    @apply bg-primary text-primary-text hover:bg-primary-dark;
+  }
+
+  &.secondary {
+    @apply border border-primary text-primary hover:bg-primary-light hover:text-primary-text;
+  }
+
+  &.inline {
+    @apply p-0 hover:underline underline-offset-2;
+  }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-semibold tracking-normal;
+}
+
+h1 {
+  @apply text-4xl md:text-5xl lg:text-6xl font-semibold;
+}
+
+h2 {
+  @apply text-3xl md:text-5xl font-semibold;
+}
+
+h3 {
+  @apply text-xl md:text-3xl font-semibold;
+}
+
+h4 {
+  @apply text-lg md:text-2xl font-semibold;
+}
+
+h5 {
+  @apply font-semibold md:text-lg;
+}
+
+h6 {
+  @apply font-semibold;
+}
+
+p,
+span {
+  > a {
+    @apply text-primary hover:underline underline-offset-2 font-semibold;
+  }
+}

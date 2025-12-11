@@ -1,5 +1,19 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"]
+  "exclude": ["dist"],
+  "compilerOptions": {
+    "paths": {
+      "@/components/*": ["./templates/components/*"],
+      "@/composites/*": ["./templates/composites/*"],
+      "@/layouts/*": ["./src/layouts/*"],
+      "@/graphql/*": ["./graphql/*"],
+      "@/actions/*": ["./data/actions/*"],
+      "@/lib/*": ["./helpers/lib/*"],
+      "@/context/*": ["./helpers/context/*"],
+      "@/hooks/*": ["./helpers/hooks/*"],
+      "@/auth": ["./auth.ts"],
+      "@/types": ["./app/types.d.ts"]
+    }
+  }
 }

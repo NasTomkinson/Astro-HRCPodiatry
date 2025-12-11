@@ -1,0 +1,9 @@
+---
+import type { Props } from './types';
+
+const { type, variant, label }: Props = Astro.props;
+
+---
+
+
+<button type={type} class={`button ${variant}`}> {label} </button>
