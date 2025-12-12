@@ -1,9 +1,8 @@
 ---
 import type { Props } from './types';
 
-const { type, variant, label }: Props = Astro.props;
+const { type, variant, label, disabled }: Props = Astro.props;
 
 ---
 
-
-<button type={type} class={`button ${variant}`}> {label} </button>
+<button type={type} class={`button ${variant}`} aria-label={label} disabled={disabled}> {label} </button>

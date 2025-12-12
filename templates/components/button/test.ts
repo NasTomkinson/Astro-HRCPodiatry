@@ -7,9 +7,23 @@ const defaultProps: Props = {
   type: "button",
   variant: "primary",
   label: "Click Me",
+  disabled: false,
 };
 
 describe("Button Component", () => {
+  test("should render a button with default args", async () => {
+    const container = await AstroContainer.create();
+    const button = await container.renderToString(Button, {
+      props: { ...defaultProps },
+    });
+
+    expect(button).toContain('class="button primary"');
+    expect(button).not.toContain("disabled");
+    expect(button).toContain("> Click Me <");
+    expect(button).toContain('type="button"');
+    expect(button).toContain('aria-label="Click Me"');
+  });
+
   test("should render a primary button ", async () => {
     const container = await AstroContainer.create();
     const button = await container.renderToString(Button, {
@@ -36,4 +50,15 @@ describe("Button Component", () => {
 
     expect(button).toContain('class="button inline"');
   });
+
+  test("should be disabled when disabled prop is true", async () => {
+    const container = await AstroContainer.create();
+    const button = await container.renderToString(Button, {
+      props: { ...defaultProps, disabled: true },
+    });
+
+    expect(button).toContain("disabled");
+  });
 });
+{
+}
