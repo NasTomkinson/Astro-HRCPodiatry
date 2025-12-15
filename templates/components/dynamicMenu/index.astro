@@ -1,0 +1,48 @@
+
+<dynamic-menu>
+    <dynamic-burger class="dynamic-burger">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </dynamic-burger>
+
+    <nav class="absolute top-0 left-0 w-full h-screen pt-20 -z-1">
+        <div class="flex flex-col justify-start items-start bg-white gap-2 px-4 py-6 grow"> 
+        <a href="#"> Nav Item </a>
+        <a href="#"> Nav Item </a>
+        <a href="#"> Nav Item </a>
+        <a href="#"> Nav Item </a>
+        <a href="#"> Nav Item </a>
+        </div>
+    </nav>
+</dynamic-menu>
+
+<script>
+
+
+    class DynamicMenu extends HTMLElement {
+        constructor() {
+            super();
+        }
+
+        connectedCallback() {
+            
+            const dynamicBurger = this.querySelector('dynamic-burger');
+            const dynamicNav = this.querySelector('nav');
+
+            dynamicBurger.addEventListener("click", () => {
+                dynamicBurger.classList.toggle("close")
+                dynamicNav.classList.toggle("open")
+            })
+        }
+
+    }
+
+    customElements.define('dynamic-menu', DynamicMenu);
+</script>
