@@ -1,0 +1,16 @@
+---
+import Hero from "@/composites/hero/index.astro"
+import CTASection from "@/composites/ctaSection/index.astro"
+
+const { composites } = Astro.props
+
+---
+
+    { composites.map((composite) => {
+
+        const compositeName = composite.__component;
+
+        if(compositeName === "composites.hero") return <Hero {...composite} />
+        if(compositeName === "composites.cta-section") return <CTASection {...composite} />
+
+    })}

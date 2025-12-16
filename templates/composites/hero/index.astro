@@ -1,0 +1,28 @@
+---
+
+import type {Props} from "./types"
+
+import Anchor from "@/components/anchor/index.astro"
+
+const { heading, copy, ctas } = Astro.props
+
+---
+
+
+<section class="hero relative min-h-[400px] py-8 flex">
+    <div class="relative container flex flex-col justify-center items-center flex-grow gap-3">
+        <h1 class="max-w-prose text-center"> {heading} </h1>
+        { copy && (
+            <p class="max-w-prose text-center md:text-lg"> {copy} </p>
+        )}
+        
+        {ctas && ctas.length && (
+            <div class="flex mt-6 gap-6">
+                {ctas.map(cta => (
+                    <Anchor href={cta.href} variant={cta.variant ?? 'primary'} label={cta.label}/>
+                ))}
+            </div>            
+        )}
+
+    </div>
+</section>

@@ -4,16 +4,11 @@
   "exclude": ["dist"],
   "compilerOptions": {
     "paths": {
+      "@/layouts/*": ["./src/layouts/*"],
       "@/components/*": ["./templates/components/*"],
       "@/composites/*": ["./templates/composites/*"],
-      "@/layouts/*": ["./src/layouts/*"],
-      "@/graphql/*": ["./graphql/*"],
-      "@/actions/*": ["./data/actions/*"],
-      "@/lib/*": ["./helpers/lib/*"],
-      "@/context/*": ["./helpers/context/*"],
-      "@/hooks/*": ["./helpers/hooks/*"],
-      "@/auth": ["./auth.ts"],
-      "@/types": ["./types"]
+      "@/types": ["./types"],
+      "@/utils/*": ["./utils/*"]
     }
   }
 }
