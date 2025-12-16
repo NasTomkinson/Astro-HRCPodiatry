@@ -1,8 +1,25 @@
 ---
 import GenericLayout from "@/layouts/generic.astro"
 import Hero from "@/composites/hero/index.astro"
+import CTASection from "@/composites/ctaSection/index.astro"
 ---
 
 <GenericLayout>
-	<Hero /> 
+	<Hero 
+		heading="Podiatry & Chiropody Services"
+		copy="Tether selling van life hiker. Ethereum ecosystem-based cloud hosting. Satoshi themed Macbook air apologist. Microdosing CryptoPunk rationalist."
+		ctas={[
+			{
+				href: '#',
+				label: 'View treatments',
+				variant: 'primary'
+			},
+			{
+				href: '#',
+				label: 'Find out more',
+				variant: 'secondary'
+			},
+		]}
+		/> 
+	<CTASection />
 </GenericLayout>

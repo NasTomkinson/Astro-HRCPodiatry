@@ -1,5 +1,4 @@
-export interface Props {
-  variant: "primary" | "secondary" | "inline";
-  label: string;
-  href: string;
+import type { AnchorProps } from "@/types";
+
+export interface Props extends AnchorProps{
 }

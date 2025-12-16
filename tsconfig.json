@@ -13,7 +13,7 @@
       "@/context/*": ["./helpers/context/*"],
       "@/hooks/*": ["./helpers/hooks/*"],
       "@/auth": ["./auth.ts"],
-      "@/types": ["./app/types.d.ts"]
+      "@/types": ["./types"]
     }
   }
 }
