@@ -2,7 +2,8 @@
 
 import Anchor from "@/components/anchor/index.astro"
 import Blocks from "@/components/blocks/index.astro"
-import { Image } from 'astro:assets'
+import CTAs from "@/components/ctas/index.astro"
+import Media from "@/components/media/index.astro"
 
 const { heading, subheading, copy, ctas, media } = Astro.props
 
@@ -20,17 +21,15 @@ const { heading, subheading, copy, ctas, media } = Astro.props
                 <Blocks content={copy} class="flex flex-col justify-start gap-3"/> // Replace with strpi block editor
             )}
     
-            {ctas && ctas.length && (
-                <div class="flex mt-6 gap-6">
-                    {ctas.map(cta => (
-                        <Anchor href={cta.href} variant={cta.style ?? 'primary'} label={cta.label}/>
-                    ))}
-                </div>            
-            )}
+            {ctas && ctas.length && ( <CTAs ctas={ctas} /> )}
+            
             
         </div>
         {media && (
-            <Image src={`http://localhost:1337${media.url}`} alt={media.alternativeText ?? ''} width={media.width} height={media.height} class="w-full aspect-5/3 object-cover rounded"/>
+            <div class="w-full aspect-5/3 overflow-hidden rounded"> 
+                <Media media={media} config={{class: "rounded", autoplay: false, controls: true}} />
+            </div>
         )}
+        
     </div>
 </section>

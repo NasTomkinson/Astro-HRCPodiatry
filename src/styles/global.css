@@ -73,7 +73,7 @@ button,
     
     &::before {
       content: "";
-      @apply absolute top-0 left-0 w-full h-full bg-gradient-to-r from-primary to-primary-text opacity-25;
+      @apply absolute top-0 left-0 w-full h-full bg-gradient-to-r from-primary to-primary-text opacity-40;
     }
   }
 }

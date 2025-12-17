@@ -1,7 +1,8 @@
-import type { AnchorProps } from "@/types";
+import type { AnchorProps, MediaImage } from "@/types";
 
 export interface Props {
   heading: string;
   copy?: string;
   ctas?: AnchorProps[]
+  media?: MediaImage
 }

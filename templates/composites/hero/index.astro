@@ -2,10 +2,10 @@
 
 import type {Props} from "./types"
 
-import Anchor from "@/components/anchor/index.astro"
+import CTAs from "@/components/ctas/index.astro"
+import Media from "@/components/media/index.astro"
 
-const { heading, copy, ctas } = Astro.props
-
+const { heading, copy, ctas, media } = Astro.props
 ---
 
 
@@ -16,13 +16,14 @@ const { heading, copy, ctas } = Astro.props
             <p class="max-w-prose text-center md:text-lg"> {copy} </p>
         )}
         
-        {ctas && ctas.length && (
-            <div class="flex mt-6 gap-6">
-                {ctas.map(cta => (
-                    <Anchor href={cta.href} variant={cta.variant ?? 'primary'} label={cta.label}/>
-                ))}
-            </div>            
-        )}
+        {ctas && ctas.length && ( <CTAs ctas={ctas} /> )}
 
     </div>
+
+
+    {media && (
+        <div class="absolute top-0 left-0 w-full h-full -z-10"> 
+            <Media media={media} config={{autoplay: true, muted: true, controls: false, loop: true}}/>
+        </div>
+    )}
 </section>
