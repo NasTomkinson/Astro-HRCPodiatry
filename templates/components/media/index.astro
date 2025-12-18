@@ -1,0 +1,37 @@
+---
+
+import type { Props } from "./types"
+import { STRAPI_URL } from "astro:env/client"
+
+const { media, config } = Astro.props
+const isVideo = media.mime.includes("video")
+
+let thumbnail, medium, large, small;
+
+if(!isVideo) {
+   thumbnail = media?.formats.thumbnail
+   small = media?.formats.small
+   medium = media?.formats.medium
+   large = media?.formats.large
+}
+
+---
+
+{!isVideo && (
+   <picture class={`relative w-full h-full *:w-full *:h-full *:object-cover ${config?.class}`} >
+      <source media="(min-width: 1240px)" srcset={`${STRAPI_URL}${media.url}`} />
+      {large && (
+         <source media="(min-width: 1024px)" srcset={`${STRAPI_URL}${large.url}`} />
+      )}
+      {medium && (
+         <source media="(min-width: 768px)" srcset={`${STRAPI_URL}${medium.url}`} />
+      )}
+      <img src={`${STRAPI_URL}${small ? small.url : media.url}`} alt={media.alternativeText}/>
+   </picture>
+)}
+
+{isVideo && (
+   <video class="relative w-full h-full object-cover" autoplay={config?.autoplay} muted={config?.muted} controls={config?.controls} loop={config?.controls}> 
+      <source src={`${STRAPI_URL}${media.url}`} type={media.mime} />
+   </video>
+)}
