@@ -1,6 +1,7 @@
 ---
 import Hero from "@/composites/hero/index.astro"
 import CTASection from "@/composites/ctaSection/index.astro"
+import GenericContent from "@/composites/GenericContent/index.astro"
 
 const { composites } = Astro.props
 
@@ -12,5 +13,6 @@ const { composites } = Astro.props
 
         if(compositeName === "composites.hero") return <Hero {...composite} />
         if(compositeName === "composites.cta-section") return <CTASection {...composite} />
+        if(compositeName === "composites.generic-content") return <GenericContent {...composite} />
 
     })}

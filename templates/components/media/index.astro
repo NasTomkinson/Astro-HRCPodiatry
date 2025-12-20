@@ -18,7 +18,7 @@ if(!isVideo) {
 ---
 
 {!isVideo && (
-   <picture class={`relative w-full h-full *:w-full *:h-full *:object-cover ${config?.class}`} >
+   <picture class:list={['relative w-full h-full *:w-full *:h-full *:object-cover', config?.class]} >
       <source media="(min-width: 1240px)" srcset={`${STRAPI_URL}${media.url}`} />
       {large && (
          <source media="(min-width: 1024px)" srcset={`${STRAPI_URL}${large.url}`} />

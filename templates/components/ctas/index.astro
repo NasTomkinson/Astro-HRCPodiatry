@@ -3,11 +3,11 @@ import type { Props } from "./types"
 
 import Anchor from "@/components/anchor/index.astro"
 
-const { ctas } = Astro.props 
+const { ctas, class: className } = Astro.props 
 
 ---
 
-<div class="flex mt-6 gap-6">
+<div class:list={["flex mt-6 gap-6", className]}>
     {ctas && ctas.length && ctas.map(cta => (
         <Anchor href={cta.href} variant={cta.variant ?? 'primary'} label={cta.label}/>
     ))}
