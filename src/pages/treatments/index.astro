@@ -1,9 +1,32 @@
 ---
-
+export const prerender = false
 import GenericLayout from "@/layouts/generic.astro"
+import useStrapi from "@/utils/strapi"
+import TreatmentCard from "@/components/cards/treatment.astro"
+
+const { treatment } = Astro.params
+
+const response = await useStrapi.collection('treatments').find({
+    pagination: {
+      pageSize: 12,
+    },
+    populate: {
+        thumbnail: {
+            populate: '*'
+        }
+    }
+})
+
+const data = response.data
 
 ---
 
-<GenericLayout> 
-    <p> Treatment page </p>
+<GenericLayout>
+    <div class="container flex flex-col justify-start gap-4">
+    {
+        data.map(treatment => (
+            <TreatmentCard {...treatment} />
+        ))
+    }
+    </div>
 </GenericLayout>

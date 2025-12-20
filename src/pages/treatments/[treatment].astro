@@ -1,9 +1,30 @@
 ---
-
+export const prerender = false
 import GenericLayout from "@/layouts/generic.astro"
+import useStrapi from "@/utils/strapi"
+
+const { treatment } = Astro.params
+
+const response = await useStrapi.collection('treatments').find({
+    filters: {
+        slug: {
+            $eq: treatment
+        }
+    },
+    pagination: {
+      pageSize: 1,
+    },
+    populate: {
+        thumbnail: {
+            populate: '*'
+        }
+    }
+})
+
+const data = response.data[0]
 
 ---
 
 <GenericLayout> 
-    <p> Treatment single page </p>
+    <p> Loaded {data.title} </p>
 </GenericLayout>

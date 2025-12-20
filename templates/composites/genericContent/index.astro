@@ -1,0 +1,28 @@
+---
+import Blocks from "@/components/blocks/index.astro"
+import CTAs from "@/components/ctas/index.astro"
+import Media from "@/components/media/index.astro"
+import type { Props } from "./types"
+
+const { heading, subheading, copy, ctas, media } = Astro.props
+  
+const hasMedia = Boolean(media)
+---
+
+<section>
+    <div class="container">
+        <div class={`relative flex justify-center rounded py-12 overflow-hidden px-12 text-center ${hasMedia ? 'text-white mx-auto has-gradient' : 'text-primary-text'}`}> 
+            <div class="relative flex flex-col gap-1">
+                <h2> {heading} </h2>
+                <span class="text-xl"> {subheading} </span>
+
+                { copy && (<Blocks class="mt-3" content={copy} />)}
+                
+
+                {ctas && ctas.length && <CTAs class="justify-center" ctas={ctas} />}                
+            </div>
+
+            {hasMedia && <Media config={{class:"absolute! top-0! left-0! w-full h-full -z-10", controls: false, autoplay: true, loop: true, muted: true}} media={media} />}
+        </div>
+    </div>
+</section>  

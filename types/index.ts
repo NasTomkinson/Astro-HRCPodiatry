@@ -1,3 +1,5 @@
+import type { StrapiBlock } from "@/components/blocks/types";
+
 interface GenericLinkProps {
   variant?: "primary" | "secondary" | "inline";
   label: string;
@@ -54,3 +56,5 @@ export type MediaImage = {
   updatedAt: string;
   publishedAt: string;
 };
+
+export type { StrapiBlock }

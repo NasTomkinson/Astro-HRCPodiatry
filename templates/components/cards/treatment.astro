@@ -1,0 +1,16 @@
+---
+import Media from "@/components/media/index.astro"
+
+const { title, thumbnail, slug } = Astro.props
+---
+
+
+<div class="grid grid-cols-auto_1fr">
+    {thumbnail && (
+        <div class="relative aspect-square w-32 rounded"> 
+            <Media media={thumbnail} config={{ class: "aspect-square max-w-16"}}/>
+        </div>
+    )}
+    <div> <h3> {title} </h3></div>
+    
+</div>

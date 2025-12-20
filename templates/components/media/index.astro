@@ -4,7 +4,8 @@ import type { Props } from "./types"
 import { STRAPI_URL } from "astro:env/client"
 
 const { media, config } = Astro.props
-const isVideo = media.mime.includes("video")
+
+const isVideo = media?.mime?.includes("video")
 
 let thumbnail, medium, large, small;
 
