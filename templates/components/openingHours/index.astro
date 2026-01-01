@@ -1,0 +1,105 @@
+---
+
+import { Icon } from "astro-icon/components"
+const {config} = Astro.locals
+
+function formatTime12h(time: string, locale = 'en-GB') {
+  const [h, m, s] = time.split(':')
+  const date = new Date(1970, 0, 1, Number(h), Number(m), Number(s))
+  
+  return new Intl.DateTimeFormat(locale, {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  }).format(date)
+}
+
+function checkIfOpen(today: Date, dates: any) {
+    const opening = dates.opening.split(":")
+    const closing = dates.closing.split(":")
+    const currentTime = `${today.getHours()}${today.getMinutes()}`
+    const openingTime =  `${opening[0]}${opening[1]}`
+    const closingTime =  `${closing[0]}${closing[1]}` 
+
+    let isOpen = false;
+    if(currentTime > openingTime && currentTime < closingTime) {
+        isOpen = true
+    }
+
+    return isOpen
+}
+
+const dates = [
+    {
+        "day": "Monday",
+        "opening": config.data.ot_monday,
+        "closing": config.data.ct_monday,
+    },
+    {
+        "day": "Tuesday",
+        "opening": config.data.ot_tuesday,
+        "closing": config.data.ct_tuesday,
+    },
+    {
+        "day": "Wednesday",
+        "opening": config.data.ot_wednesday,
+        "closing": config.data.ct_wednesday,
+    },
+    {
+        "day": "Thursday",
+        "opening": config.data.ot_thursday,
+        "closing": config.data.ct_thursday,
+    },
+    {
+        "day": "Friday",
+        "opening": config.data.ot_friday,
+        "closing": config.data.ct_friday,
+    },
+    {
+        "day": "Saturday",
+        "opening": config.data.ot_saturday,
+        "closing": config.data.ct_saturday,
+    },
+    {
+        "day": "Sunday",
+        "opening": config.data.ot_sunday,
+        "closing": config.data.ct_sunday,
+    }
+]
+
+const today = new Date()
+const day = today.getDay() - 1
+
+const currentlyOpen = checkIfOpen(today, dates[day])
+---
+
+
+    <ul class="flex flex-col text-sm gap-y-2.5 list-none! w-full m-0!">
+        <li class="w-full font-bold flex items-center justify-center gap-1">
+                    <Icon name="mdi:clock-outline" class="w-4 h-4" /> {currentlyOpen ? 'Open' : 'Closed'}</li>
+        {
+            dates.map((date, index) => {
+
+                let isClosed; 
+
+                if(date.opening === date.closing) isClosed = true
+
+                let openingTime = formatTime12h(date.opening)
+                let closingTime = formatTime12h(date.closing)
+                
+                return (
+                    <li class={`flex justify-between ${index === day ? 'font-bold' : ''}`}> 
+                        <span> {date.day} </span> 
+                        { isClosed && (
+                            <span> Closed </span>
+                        )}
+                        { !isClosed && (
+                            <span> {openingTime} - {closingTime}</span>
+                        )}
+                        
+                    </li>
+                )
+            })
+        }
+    </ul>
+

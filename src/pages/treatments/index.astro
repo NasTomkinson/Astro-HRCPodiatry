@@ -2,10 +2,11 @@
 export const prerender = false
 import GenericLayout from "@/layouts/generic.astro"
 import useStrapi from "@/utils/strapi"
+import Hero from "@/composites/hero/index.astro"
 import TreatmentCard from "@/components/cards/treatment.astro"
-
-const { treatment } = Astro.params
-
+import Logo from "@/components/logo/index.astro"
+import OpeningHours from "@/components/openingHours/index.astro"
+ 
 const response = await useStrapi.collection('treatments').find({
     pagination: {
       pageSize: 12,
@@ -22,11 +23,23 @@ const data = response.data
 ---
 
 <GenericLayout>
-    <div class="container flex flex-col justify-start gap-4">
-    {
-        data.map(treatment => (
-            <TreatmentCard {...treatment} />
-        ))
-    }
+    <Hero heading="Our Treatments" class="min-h-[200px]!" />
+    <div class="container grid md:grid-cols-[auto_300px] gap-4 my-12 max-w-7xl">
+
+        <div class="flex flex-col gap-4">
+            {
+                data.map(treatment => (
+                    <TreatmentCard {...treatment} />
+                ))
+            }            
+            <p class="text-sm"> *Average number of sessions </p>
+        </div>
+        <aside class="row-start-1 md:col-start-2">
+            <div class="flex flex-col justify-center items-center bg-white shadow-xl sticky top-0 left-0 gap-4 border border-neutral-light rounded p-4">
+                <Logo />
+                <p> 5.0★ <a href="#" class="text-primary-text! text-sm"> Reviews </a></p>
+                <OpeningHours />
+            </div>
+        </aside>
     </div>
 </GenericLayout>

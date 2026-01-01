@@ -14,10 +14,12 @@
     "@strapi/client": "^1.6.0",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.16.5",
+    "astro-icon": "^1.1.5",
     "tailwindcss": "^4.1.18",
     "vitest": "^4.0.15"
   },
   "devDependencies": {
-    "husky": "^9.1.7"
+    "husky": "^9.1.7",
+    "@iconify-json/mdi": "^1.2.3"
   }
 }

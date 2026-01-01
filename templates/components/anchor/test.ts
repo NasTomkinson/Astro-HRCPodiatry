@@ -18,7 +18,7 @@ describe("Anchor Component", () => {
 
     expect(anchor).toContain('class="button primary"');
     expect(anchor).not.toContain("disabled");
-    expect(anchor).toContain("> Click Me <");
+    expect(anchor).toContain("Click Me <");
     expect(anchor).toContain('aria-label="Click Me"');
     expect(anchor).toContain('href="#"');
   });

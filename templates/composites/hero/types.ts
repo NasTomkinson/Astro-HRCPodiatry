@@ -5,4 +5,5 @@ export interface Props {
   copy?: string;
   ctas?: AnchorProps[]
   media?: MediaImage
+  class?: string
 }

@@ -25,7 +25,7 @@
 
 button,
 .button {
-  @apply inline-flex rounded px-4 py-2 font-semibold transition-all;
+  @apply inline-flex rounded px-4 py-2 font-semibold transition-all cursor-pointer items-center gap-1;
 
   &.primary {
     @apply bg-primary text-primary-text hover:bg-primary-dark;
@@ -42,7 +42,7 @@ button,
 
 @layer components {
   .container {
-    @apply mx-auto px-4 lg:px-0;
+    @apply mx-auto px-4 lg:px-4;
   }
 
   dynamic-menu {
@@ -71,10 +71,12 @@ button,
   }
 }
 
-.has-gradient {
+.has-gradient { 
+  @apply z-10;
+
   &::before {
     content: "";
-    @apply absolute top-0 left-0 w-full h-full bg-gradient-to-r from-primary to-primary-text opacity-40;
+    @apply absolute top-0 left-0 w-full h-full bg-gradient-to-r from-primary to-primary-text opacity-50 -z-10;
   }
 }
 
@@ -119,11 +121,12 @@ span {
 }
 
 ul {
-  @apply list-disc list-inside;
+  @apply  flex flex-col list-disc list-outside gap-3 ml-5;
 
   li::marker {
     @apply text-primary;
   }
+ 
 }
 
 ol {
@@ -132,4 +135,12 @@ ol {
   li::marker {
     @apply text-primary font-semibold;
   }
+}
+
+input, select, textarea {
+  @apply border-neutral-light rounded border w-full px-3 py-2;
+}
+
+.grid-card {
+  @apply relative rounded shadow-xl border border-neutral-light bg-white;
 }

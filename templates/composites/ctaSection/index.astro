@@ -18,7 +18,7 @@ const { heading, subheading, copy, ctas, media } = Astro.props
             <h2> {heading} </h2>
 
             { copy && (
-                <Blocks content={copy} class="flex flex-col justify-start gap-3"/> // Replace with strpi block editor
+                <Blocks content={copy} class="flex flex-col justify-start gap-3"/>  
             )}
     
             {ctas && ctas.length && ( <CTAs ctas={ctas} /> )}

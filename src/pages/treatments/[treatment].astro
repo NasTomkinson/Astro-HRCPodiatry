@@ -2,6 +2,13 @@
 export const prerender = false
 import GenericLayout from "@/layouts/generic.astro"
 import useStrapi from "@/utils/strapi"
+import ContactForm from "@/composites/contactForm/index.astro"
+import Blocks from "@/components/blocks/index.astro"
+import Hero from "@/composites/hero/index.astro"
+import Media from "@/components/media/index.astro"
+import OpeningHours from "@/components/openingHours/index.astro"
+import { Icon } from "astro-icon/components"
+import Anchor from "@/components/anchor/index.astro"
 
 const { treatment } = Astro.params
 
@@ -23,8 +30,66 @@ const response = await useStrapi.collection('treatments').find({
 
 const data = response.data[0]
 
+const { title, excerpt, content, symptoms, price, averageSessions, thumbnail } = data;
+ 
 ---
 
-<GenericLayout> 
-    <p> Loaded {data.title} </p>
+<GenericLayout >  
+    <div class="container grid grid-cols-1 lg:grid-cols-[1fr_1fr] xl:grid-cols-[2fr_2fr_3fr] auto-rows-auto grid-flow-row-dense gap-3 my-6"> 
+
+        <div class="relative lg:col-span-2 xl:col-span-3 overflow-hidden flex flex-row">
+            <Anchor href={"/treatments"} class="flex justify-center items-center gap-1" icon="mdi:arrow-left-thin" label="Back to treatments" />
+        </div>
+
+        <div class="relative lg:col-span-2 xl:col-span-3 has-gradient min-h-[300px] overflow-hidden flex flex-col justify-center items-center text-center p-4 text-white rounded">
+            <h1> {title} </h1>
+        </div>
+
+        <article class="grid-card flex flex-col gap-6 lg:col-span-2 xl:col-start-1 xl:col-span-2 p-4">  
+            <p class="text-lg font-semibold"> {excerpt} </p>
+            <p class="flex flex-col justify-start gap-3"> {content}</p>
+        </article>
+
+        { symptoms && (
+            <div class="grid-card lg:col-start-1  p-4 flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <h3 class="text-2xl!"> Is this treatment right for you? </h3>
+                    <p> This treatment is suitable for those who: </p> 
+                </div>
+                <Blocks content={symptoms} class="flex flex-col justify-start gap-3"/>
+            </div>            
+        )}
+
+        
+        <div class="grid-card relative lg:col-start-2 flex flex-col justify-center items-center p-2 text-white overflow-hidden min-h-[200px] lg:min-h-auto">
+            <div class="absolute top-0 left-0 w-full h-full z-10 has-gradient"> 
+                {thumbnail && (
+                    <Media media={thumbnail} config={{ class: "-z-20" }} /> 
+                )}
+            </div>
+            <div class="flex flex-row justify-between items-center w-full grow">
+                { averageSessions && (
+                    <div class="relative flex flex-col justify-center items-center grow z-20">
+                        <span class="text-7xl"> {averageSessions} </span>
+                        <span> {averageSessions > 1 ? `Sessions*` : `Session*`} </span>
+                    </div>
+                )}
+                <div class="relative flex flex-col justify-center items-center grow z-20">
+                    <span class="text-7xl"> £{price} </span>
+                    <span> Per session </span>
+                </div>
+            </div>
+            { averageSessions && (
+                <span class="text-xs z-10"> *On average excluding initial consultation </span>
+            )}
+        </div>
+
+        <aside class="grid-card lg:col-span-2 xl:col-start-3 xl:row-span-2 p-4 flex flex-col justify-start gap-6">
+            <div class="flex flex-col justify-start gap-1">
+                <h2 class="text-2xl! lg:text-3xl!"> Get in touch </h2>
+                <p> We will aim to get in touch with you within 48 hours. </p>
+            </div>
+            <ContactForm defaultTreatment={data.title}/> 
+        </aside>
+    </div>
 </GenericLayout>

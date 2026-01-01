@@ -1,16 +1,43 @@
 ---
 import Media from "@/components/media/index.astro"
 
-const { title, thumbnail, slug } = Astro.props
+const { title, thumbnail, slug, price, duration, averageSessions, excerpt } = Astro.props
+
+let durationString = '';
+
+if(duration) {
+    const [ h, m, s ] = duration.split(":")
+
+    const hours = parseInt(h)
+    const mins = parseInt(m)
+
+    if( hours >= 1) {
+        durationString += hours > 1 ? `${h}hr` : `${h}hrs`
+    }
+
+    
+    if( mins >= 1) {
+        durationString += mins > 1 ? `${m}min` : `${m}mins`
+    }
+}
+
 ---
 
 
-<div class="grid grid-cols-auto_1fr">
+<a href={`treatments/${slug}`} class="flex items-center gap-4 shadow rounded p-4 border border-neutral-light hover:shadow-xl transition-all">
     {thumbnail && (
-        <div class="relative aspect-square w-32 rounded"> 
+        <div class="relative aspect-square w-20  rounded overflow-hidden shrink-0"> 
             <Media media={thumbnail} config={{ class: "aspect-square max-w-16"}}/>
         </div>
     )}
-    <div> <h3> {title} </h3></div>
+    <div class="flex flex-col gap-2"> 
+        <h3 class="text-xl!"> {title} </h3>
+        <p class="text-sm"> {excerpt} </p>
+        <ul class="list-none! flex-row! divide-x divide-neutral-light gap-0! *:px-2 *:first:pl-0 m-0! text-sm text-neutral">
+            {price && (<li> £{price} </li>)}
+            { (durationString) && <li> {durationString}  </li>}
+            { (averageSessions) && <li> {averageSessions} {averageSessions > 1 ? `sessions*` : `session*`} </li>}
+        </ul>
+    </div> 
     
-</div>
+</a>
