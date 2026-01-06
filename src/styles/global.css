@@ -69,6 +69,30 @@ button,
     }
 
   }
+
+  details {
+
+    &[open] summary svg {
+      @apply rotate-45;
+    }
+
+
+    summary {
+      @apply flex justify-between items-center cursor-pointer;
+
+      h3 {
+        @apply text-xl!;
+      }
+ 
+      svg {
+        @apply w-7 h-7 transition-all;
+      }
+    }
+
+    > div {
+      @apply mt-1;
+    }
+  }
 }
 
 .has-gradient { 
@@ -98,7 +122,7 @@ h2 {
 }
 
 h3 {
-  @apply text-xl md:text-3xl font-semibold;
+  @apply text-xl md:text-2xl font-semibold;
 }
 
 h4 {
@@ -121,7 +145,7 @@ span {
 }
 
 ul {
-  @apply  flex flex-col list-disc list-outside gap-3 ml-5;
+  @apply  flex flex-col list-disc list-outside gap-1 ml-5;
 
   li::marker {
     @apply text-primary;
@@ -143,4 +167,10 @@ input, select, textarea {
 
 .grid-card {
   @apply relative rounded shadow-xl border border-neutral-light bg-white;
+}
+
+.swiper { 
+  .swiper-slide {
+    @apply flex grow py-4;
+  }
 }

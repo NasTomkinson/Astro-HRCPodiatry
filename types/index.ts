@@ -58,3 +58,9 @@ export type MediaImage = {
 };
 
 export type { StrapiBlock }
+
+export interface AccordionProps {
+    id: number
+    heading: string
+    copy: StrapiBlock
+}

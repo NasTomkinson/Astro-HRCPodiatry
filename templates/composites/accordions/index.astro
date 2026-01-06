@@ -1,0 +1,16 @@
+---
+import type { Props } from "./types"
+import Accordion from "@/components/accordion/index.astro"
+const { heading, accordion } = Astro.props
+
+---
+
+<section class="relative py-8 md:py-12 lg:py-16 flex">
+    <div class="container"> 
+        <h2> { heading } </h2>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 auto-rows-auto gap-6 lg:gap-4 mt-12">
+            { accordion.map(acc => <Accordion {...acc} />)}
+        </div>
+    </div>
+</section>

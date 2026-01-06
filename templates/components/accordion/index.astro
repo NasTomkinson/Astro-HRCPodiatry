@@ -1,0 +1,16 @@
+---
+import { Icon } from "astro-icon/components";
+import Blocks from "@/components/blocks/index.astro"
+
+const { name, heading, copy } = Astro.props;
+---
+
+<details name={name} class="flex flex-col">
+    <summary> 
+        <h3>{ heading }</h3> 
+        <Icon name="mdi:plus" />
+    </summary>
+    <div class="mr-8">
+        <Blocks content={copy} />        
+    </div>
+</details>

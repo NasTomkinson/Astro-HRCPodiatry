@@ -2,6 +2,9 @@
 import Hero from "@/composites/hero/index.astro"
 import CTASection from "@/composites/ctaSection/index.astro"
 import GenericContent from "@/composites/GenericContent/index.astro"
+import Accordions from "@/composites/accordions/index.astro"
+import ContactForm from "@/composites/contactForm/index.astro"
+import Testimonials from "@/composites/testimonials/index.astro"
 
 const { composites } = Astro.props
 
@@ -14,5 +17,8 @@ const { composites } = Astro.props
         if(compositeName === "composites.hero") return <Hero {...composite} />
         if(compositeName === "composites.cta-section") return <CTASection {...composite} />
         if(compositeName === "composites.generic-content") return <GenericContent {...composite} />
+        if(compositeName === "composites.accordions") return <Accordions {...composite} />
+        if(compositeName === "composites.contact-form") return <ContactForm {...composite} />
+        if(compositeName === "composites.testimonials") return <Testimonials {...composite} />
 
     })}

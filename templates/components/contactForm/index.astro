@@ -1,0 +1,54 @@
+---
+
+import useStrapi from "@/utils/strapi"
+import Button from "@/components/button/index.astro"
+ 
+const {defaultTreatment} = Astro.props
+
+const response = await useStrapi.collection('treatments').find({
+    pagination: {
+      pageSize: 100,
+    },  
+})
+
+const treatments = response.data.map(treatment => ({"title": treatment.title, "documentId": treatment.documentId})) 
+---
+<form class="grid grid-cols-2 auto-rows-auto gap-4 w-full justify-items-start">
+    <div>
+        <label class="text-sm font-semibold"> First Name </label>
+        <input type="text" name="firstName" placeholder="First Name" />
+    </div>
+    <div>
+        <label class="text-sm font-semibold"> Last Name </label>
+        <input type="text" name="lastName" placeholder="Last Name" />
+    </div>
+    <input type="text" name="emailAddress" placeholder="Email Address" class="col-span-2"/>
+    <input type="text" name="contactNumber" placeholder="Contact Number" class="col-span-2"/>
+    <select class="col-span-2" name="treatment"> 
+        <option selected disabled> Select a treatment...</option>
+        { treatments.map(treatment => <option value={treatment.documentId} selected={treatment.title === defaultTreatment}> {treatment.title} </option>)}
+    </select>
+    <textarea placeholder="Your message" name="message" class="col-span-2"/>
+    <span class="col-span-2 text-sm"> By submitting this form you consent to our terms & conditions and privacy policy. </span>
+    <Button type="submit" variant="primary" label="Send inquiry" class="w-full col-span-2"/>
+</form>
+
+<script>
+
+    const formElement = document.querySelector("form")
+
+    formElement?.addEventListener("submit", async (e) => {
+        e.preventDefault()
+        const formData = new FormData(e.target as HTMLFormElement);
+        const response = await fetch("/api/formSubmission", {
+            method: "POST",
+            body: formData
+        })
+        const data = await response.json()
+
+        if(data.success) {
+            alert("Your message was successfully sent.")
+        }
+    })
+
+</script>
