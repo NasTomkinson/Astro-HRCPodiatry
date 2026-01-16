@@ -18,7 +18,7 @@ export default defineConfig({
   env: {
     schema: {
       STRAPI_URL: envField.string({ context: "client", access: "public", optional: false, default: "http://localhost:1337"}),
-      STRAPI_TOKEN: envField.string({ context: "client", access: "public", optional: false}),
+      STRAPI_TOKEN: envField.string({ context: "server", access: "public", optional: false}),
       STRAPI_MEDIA_URL: envField.string({context: "client", access: "public", optional: false, default: "http://localhost:1337/uploads"})
     }
   },
