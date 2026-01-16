@@ -18,8 +18,8 @@ jobs:
       - name: Build Docker image
         run: |
           docker build \
-            -- build-arg STRAPI_URL=${{ secrets.STRAPI_URL }} \
-            -- build-arg STRAPI_MEDIA_URL=${{ secrets.STRAPI_MEDIA_URL }} \
+            --build-arg STRAPI_URL=${{ secrets.STRAPI_URL }} \
+            --build-arg STRAPI_MEDIA_URL=${{ secrets.STRAPI_MEDIA_URL }} \
             -t $IMAGE_NAME .
 
       - name: Save artifact
