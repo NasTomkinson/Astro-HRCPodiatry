@@ -16,10 +16,11 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: docker build \
-          -- build-arg STRAPI_URL=${{ secrets.STRAPI_URL }} \
-          -- build-arg STRAPI_MEDIA_URL=${{ secrets.STRAPI_MEDIA_URL }} \
-          -t $IMAGE_NAME .
+        run: |
+          docker build \
+            -- build-arg STRAPI_URL=${{ secrets.STRAPI_URL }} \
+            -- build-arg STRAPI_MEDIA_URL=${{ secrets.STRAPI_MEDIA_URL }} \
+            -t $IMAGE_NAME .
 
       - name: Save artifact
         run: docker save $IMAGE_NAME | gzip > $IMAGE_NAME.tar.gz
