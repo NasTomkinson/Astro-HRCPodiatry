@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 env:
   IMAGE_NAME: hrc-astro
@@ -49,7 +50,7 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.VPS_SSH_KEY }}
           source: ${{ env.IMAGE_NAME }}.tar.gz
-          target: /root/hrc/production/${{ env.IMAGE_NAME }}.tar.gz
+          target: /root/hrc/frontend/${{ env.IMAGE_NAME }}.tar.gz
 
       - name: Run deployment script on VPS
         uses: appleboy/ssh-action@v0.1.6
