@@ -17,12 +17,12 @@ RUN npm run build
 FROM node:20-bullseye AS runner
 WORKDIR /app
 
+ARG STRAPI_TOKEN
+ENV STRAPI_TOKEN=$STRAPI_TOKEN
+
 ENV HOST=0.0.0.0
 ENV PORT=4321
 ENV NODE_ENV=production
-
-ARG STRAPI_TOKEN
-ENV STRAPI_TOKEN=$STRAPI_TOKEN
 
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
