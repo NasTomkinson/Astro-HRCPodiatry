@@ -7,10 +7,10 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "vitest",
-    "prepare": "husky"
+    "test": "vitest"
   },
   "dependencies": {
+    "@astrojs/node": "^9.5.2",
     "@strapi/client": "^1.6.0",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.16.5",

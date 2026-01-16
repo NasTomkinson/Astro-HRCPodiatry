@@ -1,0 +1,5 @@
+.DS_Storee
+dockerfile
+node_modules
+dist 
+README.md

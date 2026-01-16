@@ -1,0 +1,70 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  IMAGE_NAME: hrc-astro
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build \
+          -- build-arg STRAPI_URL=${{ secrets.STRAPI_URL }} \
+          -- build-arg STRAPI_MEDIA_URL=${{ secrets.STRAPI_MEDIA_URL }} \
+          -t $IMAGE_NAME .
+
+      - name: Save artifact
+        run: docker save $IMAGE_NAME | gzip > $IMAGE_NAME.tar.gz
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: $IMAGE_NAME
+          path: $IMAGE_NAME.tar.gz
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment: production
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.IMAGE_NAME }}
+
+      - name: Copy artifact to VPS
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: ${{ env.IMAGE_NAME }}.tar.gz
+          target: /root/hrc/production/${{ env.IMAGE_NAME }}.tar.gz
+
+      - name: Run deployment script on VPS
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: ${{ env.IMAGE_NAME }}.tar.gz
+          script: |
+            cd /root/hrc/production
+            docker load < ${{ env.IMAGE_NAME }}.tar.gz
+            docker stop hrc-astro || true
+            docker rm hrc-astro || true
+            docker run -d \ 
+              --name hrc-astro
+              --restart unless-stopped \
+              -e STRAPI_TOKEN=${{ secrets.STRAPI_TOKEN }} \
+              -p 4321:4321 \
+              ${{ env.IMAGE_NAME }}
