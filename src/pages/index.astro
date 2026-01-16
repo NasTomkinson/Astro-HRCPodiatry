@@ -5,13 +5,39 @@ import useStrapi from "@/utils/strapi"
 
 const data = useStrapi.single("homepage")
 const homepage = await data.find({
-	populate: {
-		composites: {
-			populate: "*"
-		}
-	}
-})
- 
+  populate: {
+    composites: {
+      on: {
+        'composites.hero': {
+          populate: "*",
+        },
+        'composites.cta-section': {
+          populate: "*",
+        },
+        'composites.generic-content': {
+          populate: "*",
+        },
+        'composites.accordions': {
+          populate: "*",
+        },
+        'composites.contact-form': {
+          populate: "*",
+        },
+        'composites.testimonials': {
+          populate: "*",
+        },
+        'composites.card-display': {
+          populate: { 
+            'cards': {
+              populate: "*"
+            }, 
+          }
+        }
+      },
+    },
+  },
+});
+  
 ---
 
 <GenericLayout>

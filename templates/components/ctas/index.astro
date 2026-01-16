@@ -9,6 +9,6 @@ const { ctas, class: className } = Astro.props
 
 <div class:list={["flex mt-6 gap-6", className]}>
     {ctas && ctas.length && ctas.map(cta => (
-        <Anchor href={cta.href} variant={cta.variant ?? 'primary'} label={cta.label}/>
+        <Anchor href={cta.href} variant={cta.variant ?? 'primary'} label={cta.label} icon={cta?.icon}/>
     ))}
 </div>        

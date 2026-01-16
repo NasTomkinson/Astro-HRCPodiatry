@@ -1,30 +1,31 @@
 ---
 
-import Anchor from "@/components/button/index.astro"
+import Anchor from "@/components/anchor/index.astro"
 import Logo from "@/components/logo/index.astro"
 import DynamicMenu from "@/components/dynamicMenu/index.astro"
-
+import DynamicNav from "./navigation/index.astro"
+ 
 ---
 
-<header class="sticky top-0 bg-white border-b border-b-neutral-light h-20 flex flex-row items-center z-999">
-    <div class="container grid grid-cols-[auto_1fr_auto] items-center">
+<header class="sticky top-0 h-20 bg-white border-b border-b-neutral-light flex flex-row items-center z-999">
+    <div class="container grid grid-cols-[auto_1fr] lg:grid-cols-[auto_1fr_auto] gap-x-12 h-full">
         <a href="/" class="flex flex-row justify-center items-center">
             <Logo />
         </a>
 
-        <nav>
-
+        <nav class="hidden lg:flex grow lg:justify-start lg:items-center">
+            <DynamicNav />
         </nav>
 
-        <div class="hidden md:flex flex-row justify-center items-center gap-4">
-            <Anchor type="button" variant="primary" label="Book a session" href="#" />
-            <Anchor type="button" variant="secondary" label="Book a session" href="#" />
-            <Anchor type="button" variant="inline" label="Book a session" href="#" />
+        <div class="hidden lg:flex flex-row justify-center items-center gap-4">
+            <Anchor type="button" variant="primary" label="Book a session" href="/contact" /> 
         </div>
 
 
-        <div class="md:hidden">
-            <DynamicMenu />
+        <div class="lg:hidden flex justify-end items-center">
+            <DynamicMenu>
+                <DynamicNav />
+            </DynamicMenu>
         </div>
     </div>
 </header>

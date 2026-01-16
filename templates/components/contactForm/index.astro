@@ -28,7 +28,7 @@ const treatments = response.data.map(treatment => ({"title": treatment.title, "d
         <option selected disabled> Select a treatment...</option>
         { treatments.map(treatment => <option value={treatment.documentId} selected={treatment.title === defaultTreatment}> {treatment.title} </option>)}
     </select>
-    <textarea placeholder="Your message" name="message" class="col-span-2"/>
+    <textarea placeholder="Your message" name="message" class="col-span-2 min-h-[100px]"/>
     <span class="col-span-2 text-sm"> By submitting this form you consent to our terms & conditions and privacy policy. </span>
     <Button type="submit" variant="primary" label="Send inquiry" class="w-full col-span-2"/>
 </form>

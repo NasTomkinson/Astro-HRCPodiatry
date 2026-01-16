@@ -2,23 +2,19 @@
 
 import ContactForm from "@/components/contactForm/index.astro"
 import Blocks from "@/components/blocks/index.astro"
+import Composite from "@/components/composite/index.astro"
 
 const { heading, subheading, copy} = Astro.props
 
 ---
 
 
-<section class="relative py-8 md:py-12 lg:py-16">
-    <div class="container grid lg:grid-cols-2 gap-6">
-        <div class="flex flex-col justify-start gap-2">
-            <h2> { heading } </h2>
-            <p class="text-lg font-semibold"> { subheading } </p>     
-            <Blocks content={copy} class="mt-2"/>       
-        </div>
+
+<Composite heading={heading} subheading={subheading} inline>   
+        <Blocks content={copy} class="mt-2" slot="composite-header"/>       
 
         <div class="border border-neutral-light p-4 rounded shadow-2xl">
             <ContactForm />
         </div>
-  
-    </div>
-</section>
+   
+</composite>

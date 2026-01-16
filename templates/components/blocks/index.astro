@@ -132,7 +132,7 @@ function renderChildren(children: BlockChildren | undefined): string {
 ---
 
 <!-- Main container with optional class name -->
-<div class:list={["flex flex-col justify-start gap-3", className]}>
+<div class:list={["blocks flex flex-col justify-start gap-3", className]}>
   {/* Render each block based on its type */}
 {content && Array.isArray(content) && content.map((block) => {
   if (!block || !block.type) return null;

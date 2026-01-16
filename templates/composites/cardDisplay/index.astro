@@ -1,0 +1,16 @@
+---
+import Composite from "@/components/composite/index.astro"
+import Generic from "@/components/cards/generic.astro" 
+
+const { heading, subheading, cards} = Astro.props
+
+---
+
+<Composite heading={heading} subheading={subheading}>
+    <div class="grid grid-cols-1 md:auto-cols-fr md:grid-rows-1 md:grid-flow-col-dense gap-6">
+        { cards.map(card => (
+            <Generic {...card} />
+        ))}
+    </div>   
+</Composite>
+ 

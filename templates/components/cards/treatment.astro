@@ -33,7 +33,7 @@ if(duration) {
     <div class="flex flex-col gap-2"> 
         <h3 class="text-xl!"> {title} </h3>
         <p class="text-sm"> {excerpt} </p>
-        <ul class="list-none! flex-row! divide-x divide-neutral-light gap-0! *:px-2 *:first:pl-0 m-0! text-sm text-neutral">
+        <ul class="flex flex-row divide-x divide-neutral-light gap-0! *:px-2 *:first:pl-0 m-0 text-sm text-neutral">
             {price && (<li> £{price} </li>)}
             { (durationString) && <li> {durationString}  </li>}
             { (averageSessions) && <li> {averageSessions} {averageSessions > 1 ? `sessions*` : `session*`} </li>}

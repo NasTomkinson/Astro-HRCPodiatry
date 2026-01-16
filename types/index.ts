@@ -1,7 +1,7 @@
 import type { StrapiBlock } from "@/components/blocks/types";
 
 interface GenericLinkProps {
-  variant?: "primary" | "secondary" | "inline";
+  variant?: "primary" | "secondary" | "inline" | "nav";
   label: string;
   icon?: string;
 }

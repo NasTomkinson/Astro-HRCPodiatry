@@ -1,0 +1,17 @@
+---
+
+const { heading, subheading, inline} = Astro.props
+
+---
+
+
+<section class="my-6">
+    <div class:list={["container", inline ? 'xl:grid xl:grid-cols-2' : '']}>
+        <div class="mb-6"> 
+            { heading && <h2> { heading } </h2>}
+            { subheading && <span class="subheading"> { subheading } </span>}
+            <slot name="composite-header" />
+        </div>
+        <slot/>  
+    </div>
+</section>

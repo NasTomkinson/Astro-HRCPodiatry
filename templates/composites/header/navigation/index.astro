@@ -1,0 +1,88 @@
+---
+import Anchor from "@/components/anchor/index.astro"
+import Media from "@/components/media/index.astro"
+import { Icon } from "astro-icon/components"
+
+const { nav } = Astro.locals
+
+---
+
+
+<dynamic-navigation class="relative flex grow w-full h-full lg:w-auto lg:grow-0">
+        <ul class="flex flex-col justify-start gap-3 lg:flex-row grow"> 
+            { nav.header.map((item) => (
+                <li class=" flex flex-col w-full justify-center lg:grow"> 
+                    <div class="flex flex-row p-1 justify-between lg:justify-center lg:items-center lg:gap-1 grow ">
+                        <Anchor href={item.path} label={item.title} variant="nav" />
+                        { item.items.length > 0 && (
+                            <button class="p-0! m-0! ml-1! menu-dropdown-toggle" data-menu={item.slug}> <Icon name="ic:round-keyboard-arrow-down" class="w-7 h-7" /> </button>
+                        )}
+                    </div>
+                    { item.items.length > 0 && (
+                        <div data-menu={item.slug} class="nav-dropdown-menu">
+                            <ul class="container flex flex-col justify-start items-start gap-4 py-4"> 
+                            { item.items.map((subitem) => (
+                                <li class=" w-full h-full"> 
+                                    <span class="font-semibold text-lg underline hidden lg:flex"> {subitem.title} </span>
+
+                                    { subitem.items.map((ssubitem) => (
+                                        <div class="mt-2 ml-1 gap-2 inline-flex lg:flex  ">
+                                            { ssubitem.additionalFields.thumbnail && (
+                                                <div class="w-12 h-12 aspect-square shrink-0 grow-0 mb-1 rounded overflow-hidden"> 
+                                                   <Media media={ssubitem.additionalFields.thumbnail} /> 
+                                                </div>
+                                                
+                                            )}
+                                            <Anchor href={ssubitem.path} label={ssubitem.title} variant="nav" />
+                                        </div>
+                                    ))}
+                                </li>
+                            )) }
+                            </ul>
+                        </div>
+                    )}
+                </li>
+            ))}
+        </ul>
+</dynamic-navigation>
+
+
+<script> 
+
+    class DynamicNavigation extends HTMLElement {
+        constructor() {
+            super(); 
+        }
+
+        connectedCallback() { 
+            const dropdownMenus = this.querySelectorAll('button[data-menu]');
+            const dropdownLists = this.querySelectorAll('ul[data-menu]');
+ 
+
+            dropdownMenus.forEach((button) => {
+                button.addEventListener('click', (e) => {
+                    const menuSlug = button.getAttribute('data-menu');
+                    const targetMenu = this.querySelector(`div[data-menu="${menuSlug}"]`);
+
+                    button.classList.toggle('active');
+
+                    if(!targetMenu) return;
+
+                    // Toggle visibility
+                    if (targetMenu.classList.contains('open')) {
+                        targetMenu.classList.remove('open');
+                    } else {
+                        // Hide other menus
+                        dropdownLists.forEach((list) => {
+                            list.classList.remove('open');
+                        });
+                        targetMenu.classList.add('open');
+                    }
+                });
+            });
+        } 
+    }
+
+    customElements.define('dynamic-navigation', DynamicNavigation);
+
+</script>

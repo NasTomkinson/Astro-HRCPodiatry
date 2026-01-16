@@ -1,14 +1,67 @@
 ---
 
 import Logo from "@/components/logo/index.astro"
+import Anchor from "@/components/anchor/index.astro"
+import Media from "@/components/media/index.astro"
+import { Icon } from "astro-icon/components"
+
+const { nav, config } = Astro.locals
 
 ---
 
 
-<footer class="border-t-2 border-primary p-4">
-    <div class="container"> 
-        <div class="flex flex-col justify-center items-center gap-1">
+<footer class="flex flex-col border-t-2 border-primary border">
+    <div class="container grid grid-cols-2 auto-rows-auto lg:grid-cols-5 py-12 gap-6"> 
+        <div class="flex flex-col justify-center items-center lg:justify-start lg:items-start gap-1">
             <Logo />
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <ul class="flex flex-col gap-1.5">
+                <li class="subheading font-semibold"> Quick links </li>
+                { nav.footer.map((item) => (
+                    <li> 
+                        <Anchor href={item.path} label={item.title} variant="nav"/>
+                    </li>
+                ))}
+            </ul>
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <ul class="flex flex-col gap-1.5">
+                <li class="subheading font-semibold"> Treatments </li>
+                { nav.treatments.map((item) => (
+                    <li> 
+                        <Anchor href={item.path} label={item.title} variant="nav"/>
+                    </li>
+                ))}
+            </ul>
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <span class="subheading font-semibold"> How to find us </span>
+            <a href={`https://www.google.com/maps/search/?api=1&query=${config.data.businessAddress}`} target="_blank" class="relative border border-neutral-light rounded w-full">
+                <Media media={config.data.locationMap} />
+            </a>
+            <span class="text-sm inline-flex gap-1"> <Icon name="mdi:map-marker"  class="w-5 h-5"/>{config.data.businessAddress} </span>
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <span class="subheading font-semibold"> Follow us </span>
+            <ul class="flex flex-col gap-1.5">
+                <li> <Anchor href={ config.data.facebook} label="Facebook" variant="nav"/></li>
+                <li> <Anchor href={ config.data.instagram} label="Instagram" variant="nav"/></li>
+                <li> <Anchor href={ config.data.twitter} label="Twitter" variant="nav"/></li>
+                <li> <Anchor href={ config.data.youtube} label="YouTube" variant="nav"/></li>
+            </ul>
+        </div>
+    </div>
+    <div class="bg-primary p-4 text-sm text-primary-text">
+        <div class="container flex justify-between">
+            <span> Company number: {config.data.companyNumber} </span>
+            <span> Designed & Developed by: 
+                <a href="https://nastomkinson.com" target="_blank" class="text-primary-text!"> NasTomkinson </a>
+            </span>
         </div>
     </div>
 </footer>

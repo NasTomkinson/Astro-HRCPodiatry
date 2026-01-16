@@ -1,0 +1,26 @@
+---
+
+const { heading, subheading, copy, thumbnail, ctas } = Astro.props
+
+import Media from "@/components/media/index.astro"
+import CTAs from "@/components/ctas/index.astro"
+
+---
+
+<div class="flex flex-col bg-white border border-neutral-light rounded shadow-lg w-full overflow-hidden">
+    {thumbnail && (
+        <div class="flex shrink-0 grow-0 w-full bg-primary aspect-video overflow-hidden"> 
+            <Media media={ thumbnail} />
+        </div>        
+    )}
+
+    <div class="flex flex-col justify-start p-4 grow">
+        <h3> {heading} </h3>
+        { subheading && <span class="text-lg"> { subheading} </span> }
+        {  copy && <p class="mt-1 grow"> {copy} </p> }
+          
+        { ctas && (
+            <CTAs ctas={[ctas]} />  
+         )}
+    </div>
+</div>  
