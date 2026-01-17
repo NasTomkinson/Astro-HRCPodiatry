@@ -20,14 +20,14 @@ if(!isVideo) {
 
 {!isVideo && (
    <picture class:list={['relative w-full h-full *:w-full *:h-full *:object-cover', config?.class]} >
-      <source media="(min-width: 1240px)" srcset={`${STRAPI_URL}${media.url}`} />
+      <source media="(min-width: 1240px)" srcset={`${STRAPI_URL}${media?.url}`} />
       {large && (
-         <source media="(min-width: 1024px)" srcset={`${STRAPI_URL}${large.url}`} />
+         <source media="(min-width: 1024px)" srcset={`${STRAPI_URL}${large?.url}`} />
       )}
       {medium && (
-         <source media="(min-width: 768px)" srcset={`${STRAPI_URL}${medium.url}`} />
+         <source media="(min-width: 768px)" srcset={`${STRAPI_URL}${medium?.url}`} />
       )}
-      <img src={`${STRAPI_URL}${small ? small.url : media.url}`} alt={media.alternativeText}/>
+      <img src={`${STRAPI_URL}${small ? small?.url : media?.url}`} alt={media?.alternativeText}/>
    </picture>
 )}
 

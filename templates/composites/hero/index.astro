@@ -6,6 +6,7 @@ import CTAs from "@/components/ctas/index.astro"
 import Media from "@/components/media/index.astro"
 
 const { heading, copy, ctas, media, class: className } = Astro.props
+ 
 ---
 
 
@@ -16,7 +17,7 @@ const { heading, copy, ctas, media, class: className } = Astro.props
             <p class="max-w-prose text-center md:text-lg"> {copy} </p>
         )}
         
-        {ctas && ctas.length && ( <CTAs ctas={ctas} /> )}
+        {ctas && ctas.length > 0 && ( <CTAs ctas={ctas} /> )}
 
         <slot />
 

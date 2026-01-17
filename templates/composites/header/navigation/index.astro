@@ -10,7 +10,7 @@ const { nav } = Astro.locals
 
 <dynamic-navigation class="relative flex grow w-full h-full lg:w-auto lg:grow-0">
         <ul class="flex flex-col justify-start gap-3 lg:flex-row grow"> 
-            { nav.header.map((item) => (
+            { nav?.header && nav.header.map((item) => (
                 <li class=" flex flex-col w-full justify-center lg:grow"> 
                     <div class="flex flex-row p-1 justify-between lg:justify-center lg:items-center lg:gap-1 grow ">
                         <Anchor href={item.path} label={item.title} variant="nav" />

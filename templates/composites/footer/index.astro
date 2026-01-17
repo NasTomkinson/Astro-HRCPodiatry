@@ -19,7 +19,7 @@ const { nav, config } = Astro.locals
         <div class="flex flex-col gap-1">
             <ul class="flex flex-col gap-1.5">
                 <li class="subheading font-semibold"> Quick links </li>
-                { nav.footer.map((item) => (
+                { nav?.footer && nav.footer.map((item) => (
                     <li> 
                         <Anchor href={item.path} label={item.title} variant="nav"/>
                     </li>
@@ -30,7 +30,7 @@ const { nav, config } = Astro.locals
         <div class="flex flex-col gap-1">
             <ul class="flex flex-col gap-1.5">
                 <li class="subheading font-semibold"> Treatments </li>
-                { nav.treatments.map((item) => (
+                { nav?.treatments && nav.treatments.map((item) => (
                     <li> 
                         <Anchor href={item.path} label={item.title} variant="nav"/>
                     </li>
@@ -39,11 +39,17 @@ const { nav, config } = Astro.locals
         </div>
 
         <div class="flex flex-col gap-1">
-            <span class="subheading font-semibold"> How to find us </span>
-            <a href={`https://www.google.com/maps/search/?api=1&query=${config.data.businessAddress}`} target="_blank" class="relative border border-neutral-light rounded w-full">
-                <Media media={config.data.locationMap} />
-            </a>
-            <span class="text-sm inline-flex gap-1"> <Icon name="mdi:map-marker"  class="w-5 h-5"/>{config.data.businessAddress} </span>
+            { config?.data?.businessAddress && (
+                <>
+                <span class="subheading font-semibold"> How to find us </span>
+                { config.data.locationMap && (
+                    <a href={`https://www.google.com/maps/search/?api=1&query=${config.data.businessAddress}`} target="_blank" class="relative border border-neutral-light rounded w-full">
+                        <Media media={config.data.locationMap} />
+                    </a>                
+                )}
+                <span class="text-sm inline-flex gap-1"> <Icon name="mdi:map-marker"  class="w-5 h-5"/>{config.data.businessAddress} </span>
+                </>                
+            )}
         </div>
 
         <div class="flex flex-col gap-1">

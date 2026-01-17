@@ -18,7 +18,7 @@ async function fetchStrapiConfig() {
 async function fetchStrapiNavs() {
     const data = useStrapi.single("navigation/render/header")
     const footerData = useStrapi.single("navigation/render/footer")
-    const treatmentData = useStrapi.single("navigation/render/treatments-2")
+    const treatmentData = useStrapi.single("navigation/render/treatments")
 
     const config = await data.find({
         type: "TREE",
