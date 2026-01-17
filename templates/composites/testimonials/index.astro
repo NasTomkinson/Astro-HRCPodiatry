@@ -9,7 +9,7 @@ const { heading, subheading, reviews} = Astro.props
 <section class="relative py-8 md:py-12 lg:py-16">
     <div class="container">
         <h2> {heading} </h2>
-        <p class="subheading"> { subheading } </p>
+        { subheading && <p class="subheading"> { subheading } </p> } 
 
         <div class="flex mt-6  ">
             <Swiper options={{
@@ -32,7 +32,7 @@ const { heading, subheading, reviews} = Astro.props
                 }
             }}> 
                 <SwiperWrapper>
-                    { reviews.map((t) => (
+                    { reviews && reviews.map((t) => (
                         <SwiperSlide> <Review {...t} /> </SwiperSlide> 
                     ))}
                 </SwiperWrapper>
