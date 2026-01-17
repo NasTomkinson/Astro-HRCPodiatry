@@ -19,6 +19,7 @@ jobs:
       - name: Build Docker image
         run: |
           docker build \
+            --no-cache \
             --build-arg STRAPI_URL=${{ secrets.STRAPI_URL }} \
             --build-arg STRAPI_MEDIA_URL=${{ secrets.STRAPI_MEDIA_URL }} \
             -t $IMAGE_NAME .
@@ -60,7 +61,7 @@ jobs:
           key: ${{ secrets.VPS_SSH }}
           source: ${{ env.IMAGE_NAME }}.tar.gz
           script: |
-            cd /root/hrc/production
+            cd /root/hrc/frontend
             docker load < ${{ env.IMAGE_NAME }}.tar.gz
             docker stop hrc-astro || true
             docker rm hrc-astro || true
