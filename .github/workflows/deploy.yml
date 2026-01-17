@@ -51,23 +51,25 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH }}
           source: ${{ env.IMAGE_NAME }}.tar.gz
-          target: /root/hrc/frontend/${{ env.IMAGE_NAME }}.tar.gz
+          target: /root/hrc/frontend/
 
-      - name: Run deployment script on VPS
+      - name: Deploy on VPS
         uses: appleboy/ssh-action@v0.1.6
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH }}
-          source: ${{ env.IMAGE_NAME }}.tar.gz
           script: |
-            cd /root/hrc/front
-            docker load < ${{ env.IMAGE_NAME }}.tar.gz
+            cd /root/hrc/frontend
+
+            docker load < hrc-astro.tar.gz
+
             docker stop hrc-astro || true
             docker rm hrc-astro || true
-            docker run -d \ 
-              --name hrc-astro
+
+            docker run -d \
+              --name hrc-astro \
               --restart unless-stopped \
-              -e STRAPI_TOKEN=${{ secrets.STRAPI_TOKEN }} \
+              --env-file /root/hrc/frontend/.env \
               -p 4321:4321 \
-              ${{ env.IMAGE_NAME }}
+              hrc-astro
