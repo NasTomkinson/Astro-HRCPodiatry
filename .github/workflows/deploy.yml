@@ -42,7 +42,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: ${{ env.IMAGE_NAME }}
+          name: hrc-astro
 
       - name: Copy artifact to VPS
         uses: appleboy/scp-action@v0.1.4
@@ -50,8 +50,8 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH }}
-          source: ${{ env.IMAGE_NAME }}.tar.gz
-          target: /root/hrc/frontend/${{ env.IMAGE_NAME }}.tar.gz
+          source: hrc-astro.tar.gz
+          target: /root/hrc/frontend/hrc-astro.tar.gz
 
       - name: Run deployment script on VPS
         uses: appleboy/ssh-action@v0.1.6
@@ -59,10 +59,10 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH }}
-          source: ${{ env.IMAGE_NAME }}.tar.gz
+          source: hrc-astro.tar.gz
           script: |
             cd /root/hrc/frontend
-            docker load < ${{ env.IMAGE_NAME }}.tar.gz
+            docker load < hrc-astro.tar.gz
             docker stop hrc-astro || true
             docker rm hrc-astro || true
             docker run -d \ 
@@ -70,4 +70,4 @@ jobs:
               --restart unless-stopped \
               -e STRAPI_TOKEN=${{ secrets.STRAPI_TOKEN }} \
               -p 4321:4321 \
-              ${{ env.IMAGE_NAME }}
+              hrc-astro
