@@ -18,13 +18,11 @@ export default defineConfig({
   env: {
     schema: {
       STRAPI_URL: envField.string({ context: "client", access: "public", optional: false, default: "http://localhost:1337"}),
-      STRAPI_TOKEN: envField.string({ context: "client", access: "public", optional: false}),
-      STRAPI_MEDIA_URL: envField.string({context: "client", access: "public", optional: false, default: "http://localhost:1337/uploads"})
+      STRAPI_MEDIA_URL: envField.string({context: "client", access: "public", optional: false, default: "http://localhost:1337/uploads"}),
+      STRAPI_TOKEN: envField.string({ context: "server", access: "secret", optional: false})
     }
   },
-  image: {
-    remotePatterns: [{protocol: 'https://pixabay.com/'}]
-  },
+  image: {   },
   vite: {
     plugins: [tailwindcss()],
   },
