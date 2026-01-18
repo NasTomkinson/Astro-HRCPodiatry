@@ -9,20 +9,20 @@ const { heading, subheading, copy, ctas, media } = Astro.props
 const hasMedia = Boolean(media)
 ---
 
-<section>
+<section class="py-8 md:py-12 lg:py-16 ">
     <div class="container">
-        <div class={`relative flex justify-center rounded py-12 overflow-hidden px-12 text-center ${hasMedia ? 'text-white mx-auto' : 'text-primary-text'}`}> 
-            <div class="relative flex flex-col gap-1">
+        <div class={`relative flex justify-center rounded  overflow-hidden px-12 text-center ${hasMedia ? 'text-white mx-auto py-24' : 'text-primary-text'}`}> 
+            <div class="relative flex flex-col gap-1 z-20">
                 <h2> {heading} </h2>
                 <span class="text-xl"> {subheading} </span>
 
-                { copy && (<Blocks class="mt-2" content={copy} />)}
+                { copy && (<Blocks class="mt-2 max-w-prose" content={copy} />)}
                 
 
-                {ctas && ctas.length && <CTAs class="justify-center" ctas={ctas} />}                
+                {ctas && ctas.length > 0 && <CTAs class="justify-center" ctas={ctas} />}                
             </div>
 
-            {hasMedia && <Media config={{class:"absolute! top-0! left-0! w-full h-full -z-10", controls: false, autoplay: true, loop: true, muted: true}} media={media} />}
+            {hasMedia && <Media config={{class:"absolute! top-0! left-0! w-full h-full -z-10 has-gradient", controls: false, autoplay: true, loop: true, muted: true}} media={media} />}
         </div>
     </div>
 </section>  

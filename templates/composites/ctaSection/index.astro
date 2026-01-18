@@ -21,7 +21,7 @@ const { heading, subheading, copy, ctas, media } = Astro.props
                 <Blocks content={copy}/>  
             )}
     
-            {ctas && ctas.length && ( <CTAs ctas={ctas} /> )}
+            {ctas && ctas.length > 0 && ( <CTAs ctas={ctas} /> )}
             
             
         </div>

@@ -3,12 +3,29 @@ import Stars from "@/components/stars/index.astro"
 
 const { title, reviewerName, reviewContent, rating } = Astro.props
 
+/**
+ * Truncates text to a maximum number of words.
+ *
+ * @param {string} text
+ * @param {number} maxWords
+ * @returns {string}
+ */
+function truncateWords(text, maxWords = 30) {
+  if (typeof text !== 'string' || !text.trim()) return '';
+
+  const words = text.trim().split(/\s+/);
+
+  if (words.length <= maxWords) return text.trim();
+
+  return words.slice(0, maxWords).join(' ') + '…';
+}
+
 ---
 
 
 <div class="flex flex-col gap-1 border border-neutral-light rounded shadow-lg p-4 grow">
     <Stars rating={rating} />       
     { title && <h3 class="text-xl!"> { title } </h3> }
-    <p class="grow"> { reviewContent } </p>
+    <p class="grow"> { truncateWords(reviewContent) } </p>
     { reviewerName && <span class="italic text-neutral"> - {reviewerName} </span> }
 </div>
