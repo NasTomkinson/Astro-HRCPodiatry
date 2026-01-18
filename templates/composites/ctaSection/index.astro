@@ -5,7 +5,7 @@ import Blocks from "@/components/blocks/index.astro"
 import CTAs from "@/components/ctas/index.astro"
 import Media from "@/components/media/index.astro"
 
-const { heading, subheading, copy, ctas, media } = Astro.props
+const { heading, subheading, copy, ctas, media, reverseOrder = false} = Astro.props
 
 ---
 
@@ -26,7 +26,7 @@ const { heading, subheading, copy, ctas, media } = Astro.props
             
         </div>
         {media && (
-            <div class="w-full aspect-5/3 overflow-hidden rounded"> 
+            <div class={`w-full aspect-5/3 overflow-hidden rounded ${ reverseOrder ? 'lg:order-first' : '' }`}> 
                 <Media media={media} config={{class: "rounded", autoplay: false, controls: true}} />
             </div>
         )}

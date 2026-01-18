@@ -6,4 +6,5 @@ export interface Props {
     copy?: StrapiBlock;
     ctas: AnchorProps[];
     media: MediaImage;
+    reverseOrder?: boolean;
 }
