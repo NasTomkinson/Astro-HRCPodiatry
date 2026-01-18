@@ -15,12 +15,11 @@ function formatTime12h(time: string, locale = 'en-GB') {
 }
 
 function checkIfOpen(today: Date, dates: any) {
-    const opening = dates.opening.split(":")
-    const closing = dates.closing.split(":")
+    const opening = dates?.opening.split(":")
+    const closing = dates?.closing.split(":")
     const currentTime = `${today.getHours()}${today.getMinutes()}`
     const openingTime =  `${opening[0]}${opening[1]}`
-    const closingTime =  `${closing[0]}${closing[1]}` 
-
+    const closingTime =  `${closing[0]}${closing[1]}`
     let isOpen = false;
     if(currentTime > openingTime && currentTime < closingTime) {
         isOpen = true
@@ -31,44 +30,44 @@ function checkIfOpen(today: Date, dates: any) {
 
 const dates = [
     {
+        "day": "Sunday",
+        "opening": config?.data.ot_sunday,
+        "closing": config?.data.ct_sunday,
+    },
+    {
         "day": "Monday",
-        "opening": config.data.ot_monday,
-        "closing": config.data.ct_monday,
+        "opening": config?.data.ot_monday,
+        "closing": config?.data.ct_monday,
     },
     {
         "day": "Tuesday",
-        "opening": config.data.ot_tuesday,
-        "closing": config.data.ct_tuesday,
+        "opening": config?.data.ot_tuesday,
+        "closing": config?.data.ct_tuesday,
     },
     {
         "day": "Wednesday",
-        "opening": config.data.ot_wednesday,
-        "closing": config.data.ct_wednesday,
+        "opening": config?.data.ot_wednesday,
+        "closing": config?.data.ct_wednesday,
     },
     {
         "day": "Thursday",
-        "opening": config.data.ot_thursday,
-        "closing": config.data.ct_thursday,
+        "opening": config?.data.ot_thursday,
+        "closing": config?.data.ct_thursday,
     },
     {
         "day": "Friday",
-        "opening": config.data.ot_friday,
-        "closing": config.data.ct_friday,
+        "opening": config?.data.ot_friday,
+        "closing": config?.data.ct_friday,
     },
     {
         "day": "Saturday",
-        "opening": config.data.ot_saturday,
-        "closing": config.data.ct_saturday,
+        "opening": config?.data.ot_saturday,
+        "closing": config?.data.ct_saturday,
     },
-    {
-        "day": "Sunday",
-        "opening": config.data.ot_sunday,
-        "closing": config.data.ct_sunday,
-    }
 ]
 
 const today = new Date()
-const day = today.getDay() - 1
+const day = today.getDay()  
 
 const currentlyOpen = checkIfOpen(today, dates[day])
 ---
@@ -79,6 +78,8 @@ const currentlyOpen = checkIfOpen(today, dates[day])
                     <Icon name="mdi:clock-outline" class="w-4 h-4" /> {currentlyOpen ? 'Open' : 'Closed'}</li>
         {
             dates.map((date, index) => {
+
+                if(!date.opening || !date.closing) return null;
 
                 let isClosed; 
 
