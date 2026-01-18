@@ -4,7 +4,6 @@ import Review from "@/components/review/index.astro"
 
 const { heading, subheading, reviews} = Astro.props
 
-console.log(Astro.props)
 
 ---
 
@@ -13,8 +12,9 @@ console.log(Astro.props)
         <h2> {heading} </h2>
         { subheading && <p class="subheading"> { subheading } </p> } 
 
-        <div class="flex mt-6  ">
-            <Swiper options={{
+        <div class="mt-6">
+            <Swiper  
+                options={{
                 autoplay: {
                     delay: 3000
                 },
