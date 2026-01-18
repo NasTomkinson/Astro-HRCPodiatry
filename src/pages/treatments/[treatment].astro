@@ -32,7 +32,7 @@ const { title, excerpt, content, symptoms, price, averageSessions, thumbnail } =
 ---
 
 <GenericLayout >  
-    <div class="container grid grid-cols-1 lg:grid-cols-[1fr_1fr] xl:grid-cols-[2fr_2fr_3fr] auto-rows-auto grid-flow-row-dense gap-3 my-6"> 
+    <div class="container grid grid-cols-1 lg:grid-cols-[1fr_1fr] xl:grid-cols-[2fr_2fr_3fr] auto-rows-auto grid-flow-row-dense gap-3 lg:gap-6 my-6"> 
 
         <div class="relative lg:col-span-2 xl:col-span-3 overflow-hidden flex flex-row">
             <Anchor href={"/treatments"} class="flex justify-center items-center gap-1" icon="mdi:arrow-left-thin" label="Back to treatments" />
@@ -43,16 +43,12 @@ const { title, excerpt, content, symptoms, price, averageSessions, thumbnail } =
         </div>
 
         <article class="grid-card flex flex-col gap-6 lg:col-span-2 xl:col-start-1 xl:col-span-2 p-4">  
-            <p class="text-lg font-semibold"> {excerpt} </p>
-            <p class="flex flex-col justify-start gap-3"> {content}</p>
+            { excerpt && <p class="text-lg font-semibold"> {excerpt} </p> }
+            { content && <p class="flex flex-col justify-start gap-3"> {content}</p> } 
         </article>
 
         { symptoms && (
             <div class="grid-card lg:col-start-1  p-4 flex flex-col gap-4">
-                <div class="flex flex-col gap-1">
-                    <h3 class="text-2xl!"> Is this treatment right for you? </h3>
-                    <p> This treatment is suitable for those who: </p> 
-                </div>
                 <Blocks content={symptoms}/>
             </div>            
         )}

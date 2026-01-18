@@ -11,12 +11,12 @@ const { nav, config } = Astro.locals
 
 
 <footer class="flex flex-col border-t-2 border-primary border">
-    <div class="container grid grid-cols-2 auto-rows-auto lg:grid-cols-5 py-12 gap-6"> 
-        <div class="flex flex-col justify-center items-center lg:justify-start lg:items-start gap-1">
+    <div class="container grid grid-cols-2 auto-rows-auto lg:grid-cols-[1fr_1fr_1.5fr_2fr_0.25fr] py-12 gap-6"> 
+        <div class="flex flex-col justify-center items-center lg:justify-start lg:items-start gap-1 col-span-2 lg:col-span-1">
             <Logo />
         </div>
 
-        <div class="flex flex-col gap-1">
+        <div class="flex flex-col gap-1 grid-cols-1">
             <ul class="flex flex-col gap-1.5">
                 <li class="subheading font-semibold"> Quick links </li>
                 { nav?.footer && nav.footer.map((item) => (
@@ -25,9 +25,9 @@ const { nav, config } = Astro.locals
                     </li>
                 ))}
             </ul>
-        </div>
+        </div> 
 
-        <div class="flex flex-col gap-1">
+        <div class="flex flex-col gap-1 grid-cols-1">
             <ul class="flex flex-col gap-1.5">
                 <li class="subheading font-semibold"> Treatments </li>
                 { nav?.treatments && nav.treatments.map((item) => (
@@ -38,32 +38,56 @@ const { nav, config } = Astro.locals
             </ul>
         </div>
 
-        <div class="flex flex-col gap-1">
+        <div class="flex flex-col gap-1 col-span-2 lg:col-span-1">
             { config?.data?.businessAddress && (
                 <>
                 <span class="subheading font-semibold"> How to find us </span>
+                <span class="text-sm inline-flex gap-1 my-1"> <Icon name="mdi:map-marker"  class="w-5 h-5"/>{config.data.businessAddress} </span>
                 { config.data.locationMap && (
-                    <a href={`https://www.google.com/maps/search/?api=1&query=${config.data.businessAddress}`} target="_blank" class="relative border border-neutral-light rounded w-full">
+                    <a href={`https://www.google.com/maps/search/?api=1&query=${config.data.businessAddress}`} target="_blank" class="relative border border-neutral-light rounded w-auto max-h-48">
                         <Media media={config.data.locationMap} />
                     </a>                
                 )}
-                <span class="text-sm inline-flex gap-1"> <Icon name="mdi:map-marker"  class="w-5 h-5"/>{config.data.businessAddress} </span>
                 </>                
             )}
         </div>
 
-        <div class="flex flex-col gap-1">
-            <span class="subheading font-semibold"> Follow us </span>
-            <ul class="flex flex-col gap-1.5">
-                <li> <Anchor href={ config.data.facebook} label="Facebook" variant="nav"/></li>
-                <li> <Anchor href={ config.data.instagram} label="Instagram" variant="nav"/></li>
-                <li> <Anchor href={ config.data.twitter} label="Twitter" variant="nav"/></li>
-                <li> <Anchor href={ config.data.youtube} label="YouTube" variant="nav"/></li>
+        <div class="flex flex-col gap-1 col-span-2 lg:col-span-1"> 
+            <ul class="flex flex-row justify-center lg:flex-col gap-2 mx-auto lg:items-end lg:justify-center lg:m-0 lg:gap-5 lg:grow">
+                { config.data.facebook && (
+                    <li> 
+                        <a href={config.data.facebook} class="hover:text-primary transition-all">
+                            <Icon name="mdi:facebook" class="w-6 h-6"/>
+                        </a>
+                    </li>                    
+                )}
+                { config.data.instagram && (
+                    <li> 
+                        <a href={config.data.instagram} class="hover:text-primary transition-all">
+                            <Icon name="mdi:instagram" class="w-6 h-6"/>
+                        </a>
+                    </li>                    
+                )}
+                { config.data.twitter && (
+                    <li> 
+                        <a href={config.data.twitter} class="hover:text-primary transition-all">
+                            <Icon name="mdi:twitter" class="w-6 h-6"/>
+                        </a>
+                    </li>                    
+                )}
+                { config.data.youtube && (
+                    <li> 
+                        <a href={config.data.youtube} class="hover:text-primary transition-all">
+                            <Icon name="mdi:youtube" class="w-6 h-6"/>
+                        </a>
+                    </li>                    
+                )} 
             </ul>
         </div>
+
     </div>
     <div class="bg-primary p-4 text-sm text-primary-text">
-        <div class="container flex justify-between">
+        <div class="container flex flex-col lg:flex-row items-center gap-1 justify-between">
             <span> Company number: {config.data.companyNumber} </span>
             <span> Designed & Developed by: 
                 <a href="https://nastomkinson.com" target="_blank" class="text-primary-text!"> NasTomkinson </a>
