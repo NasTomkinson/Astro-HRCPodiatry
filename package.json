@@ -17,11 +17,11 @@
     "astro-icon": "^1.1.5",
     "astro-swiper": "^1.4.0",
     "tailwindcss": "^4.1.18",
-    "vitest": "^4.0.15"
+    "vitest": "^4.0.15",
+    "@iconify-json/ic": "^1.2.4",
+    "@iconify-json/mdi": "^1.2.3"
   },
   "devDependencies": {
-    "@iconify-json/ic": "^1.2.4",
-    "@iconify-json/mdi": "^1.2.3",
     "husky": "^9.1.7"
   }
 }
