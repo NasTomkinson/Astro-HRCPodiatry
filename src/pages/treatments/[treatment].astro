@@ -27,7 +27,7 @@ const response = await useStrapi.collection('treatments').find({
 
 const data = response.data[0]
 
-const { title, excerpt, content, symptoms, price, averageSessions, thumbnail } = data;
+const { title, excerpt, content, symptoms, price, averageSessions, thumbnail, } = data;
  
 ---
 
@@ -43,8 +43,15 @@ const { title, excerpt, content, symptoms, price, averageSessions, thumbnail } =
         </div>
 
         <article class="grid-card flex flex-col gap-6 lg:col-span-2 xl:col-start-1 xl:col-span-2 p-4">  
-            { excerpt && <p class="text-lg font-semibold"> {excerpt} </p> }
-            { content && <p class="flex flex-col justify-start gap-3"> {content}</p> } 
+            <div class="flex grow">
+                { excerpt && <p class="text-lg font-semibold"> {excerpt} </p> }
+                { content && <p class="flex flex-col justify-start gap-3"> {content}</p> } 
+            </div>
+
+            <div class="flex">
+                <Anchor href={`/booking`} label="Book your session" variant="primary"/>                
+            </div>          
+
         </article>
 
         { symptoms && (
