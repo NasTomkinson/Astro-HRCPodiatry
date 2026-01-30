@@ -1,7 +1,7 @@
 ---
 import Media from "@/components/media/index.astro"
 
-const { title, thumbnail, slug, price, duration, averageSessions, excerpt } = Astro.props
+const { title, thumbnail, slug, price, duration , excerpt } = Astro.props
 
 let durationString = '';
 
@@ -34,8 +34,7 @@ if(duration) {
         { excerpt && <p class="text-sm"> {excerpt} </p> }
         <ul class="flex flex-row divide-x divide-neutral-light gap-0! *:px-2 *:first:pl-0 m-0 text-sm text-neutral">
             {price && (<li> £{price} </li>)}
-            { (durationString) && <li> {durationString}  </li>}
-            { (averageSessions) && <li> {averageSessions} {averageSessions > 1 ? `sessions*` : `session*`} </li>}
+            { (durationString) && <li> {durationString}  </li>} 
         </ul>
     </div> 
     

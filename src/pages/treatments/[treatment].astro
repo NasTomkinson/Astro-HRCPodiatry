@@ -6,7 +6,8 @@ import ContactForm from "@/components/contactForm/index.astro"
 import Blocks from "@/components/blocks/index.astro" 
 import Media from "@/components/media/index.astro" 
 import Anchor from "@/components/anchor/index.astro"
-
+import DynamicZone from "@/components/dynamicZone/index.astro"
+import { Icon } from "astro-icon/components"
 const { treatment } = Astro.params
 
 const response = await useStrapi.collection('treatments').find({
@@ -21,75 +22,114 @@ const response = await useStrapi.collection('treatments').find({
     populate: {
         thumbnail: {
             populate: '*'
+        },
+        composites: {
+            on: { 
+                'composites.cta-section': {
+                    populate: "*",
+                },
+                'composites.generic-content': {
+                    populate: "*",
+                },
+                'composites.accordions': {
+                    populate: "*",
+                },
+                'composites.contact-form': {
+                    populate: "*",
+                },
+                'composites.testimonials': {
+                    populate: "*", 
+                },
+                'composites.card-display': {
+                    populate: { 
+                        'cards': {
+                        populate: "*"
+                        }, 
+                    }
+                }
+            },
         }
     }
 })
 
 const data = response.data[0]
 
-const { title, excerpt, content, symptoms, price, averageSessions, thumbnail, } = data;
- 
+const { title, excerpt, price, duration, thumbnail, composites, bookingUrl } = data;
+
+let durationString = '';
+
+if(duration) {
+    const [ h, m, s ] = duration.split(":")
+
+    const hours = parseInt(h)
+    const mins = parseInt(m) 
+    
+    if( hours > 1) {
+        durationString += hours > 1 ? `${hours}h ` : `${hours}h `
+    }
+
+    if( mins >= 1 || hours == 1) {
+        durationString += hours == 1 ? `60m` : `${mins}m`
+    }
+}
+
 ---
 
 <GenericLayout >  
-    <div class="container grid grid-cols-1 lg:grid-cols-[1fr_1fr] xl:grid-cols-[2fr_2fr_3fr] auto-rows-auto grid-flow-row-dense gap-3 lg:gap-6 my-6"> 
+    <div class="container  "> 
 
         <div class="relative lg:col-span-2 xl:col-span-3 overflow-hidden flex flex-row">
             <Anchor href={"/treatments"} class="flex justify-center items-center gap-1" icon="mdi:arrow-left-thin" label="Back to treatments" />
         </div>
 
         <div class="relative lg:col-span-2 xl:col-span-3 has-gradient min-h-[300px] overflow-hidden flex flex-col justify-center items-center text-center p-4 text-white rounded">
-            <h1> {title} </h1>
+            <h1 class="z-10"> {title} </h1>
         </div>
-
-        <article class="grid-card flex flex-col gap-6 lg:col-span-2 xl:col-start-1 xl:col-span-2 p-4">  
-            <div class="flex grow">
-                { excerpt && <p class="text-lg font-semibold"> {excerpt} </p> }
-                { content && <p class="flex flex-col justify-start gap-3"> {content}</p> } 
-            </div>
-
-            <div class="flex">
-                <Anchor href={`/booking`} label="Book your session" variant="primary"/>                
-            </div>          
-
-        </article>
-
-        { symptoms && (
-            <div class="grid-card lg:col-start-1  p-4 flex flex-col gap-4">
-                <Blocks content={symptoms}/>
-            </div>            
-        )}
 
         
-        <div class="grid-card relative lg:col-start-2 flex flex-col justify-center items-center p-2 text-white overflow-hidden min-h-[200px] lg:min-h-auto">
-            <div class="absolute top-0 left-0 w-full h-full z-10 has-gradient"> 
-                {thumbnail && (
-                    <Media media={thumbnail} config={{ class: "-z-20" }} /> 
-                )}
-            </div>
-            <div class="flex flex-row justify-between items-center w-full grow">
-                { averageSessions && (
-                    <div class="relative flex flex-col justify-center items-center grow z-20">
-                        <span class="text-7xl"> {averageSessions} </span>
-                        <span> {averageSessions > 1 ? `Sessions*` : `Session*`} </span>
-                    </div>
-                )}
-                <div class="relative flex flex-col justify-center items-center grow z-20">
-                    <span class="text-7xl"> £{price} </span>
-                    <span> Per session </span>
-                </div>
-            </div>
-            { averageSessions && (
-                <span class="text-xs z-10"> *On average excluding initial consultation </span>
-            )}
         </div>
 
-        <aside class="grid-card lg:col-span-2 xl:col-start-3 xl:row-span-2 p-4 flex flex-col justify-start gap-6">
+        <!-- <aside class="grid-card lg:col-span-2 xl:col-start-3 xl:row-span-2 p-4 flex flex-col justify-start gap-6">
             <div class="flex flex-col justify-start gap-1">
                 <h2 class="text-2xl! lg:text-3xl!"> Get in touch </h2>
                 <p> We will aim to get in touch with you within 48 hours. </p>
             </div>
             <ContactForm defaultTreatment={data.title}/> 
-        </aside>
+        </aside> -->
     </div>
+
+    <DynamicZone composites={composites} />
+
+    <section class="mb-24">
+        <div class="container">
+            <div class="relative rounded overflow-hidden has-gradient flex flex-col justify-center items-center py-12">
+                <div class="z-10 text-white flex flex-col justify-center items-center gap-4 ">
+                    <h2> Ready to get started? </h2>
+                    <p class="text-xl"> Getting the right treatment that's right for you couldn't be easier. </p>
+                    <ul class="flex flex-row justify-center items-center gap-8">
+                        {price && (
+                            <li class="flex flex-col items-center gap-1">
+                                <span class="uppercase text-sm"> Price </span>
+                                <span  class="flex items-center gap-1 text-2xl">
+                                    <Icon name="mdi:tag-outline" />  £{price} 
+                                </span>
+                            </li>
+                        )}
+                        { (durationString) && 
+                            <li class="flex flex-col items-center gap-1">
+                                <span class="uppercase text-sm"> Duration </span>  
+                                <span  class="flex items-center gap-1 text-2xl"> 
+                                    <Icon name="mdi:clock-outline" /> 
+                                    {durationString} 
+                                </span>
+                            </li>}                         
+                    </ul>
+ 
+
+                    <Anchor href={"/booking"} variant="primary" label="Book a session"/>
+                </div>
+                
+            </div> 
+        </div>
+    </section>
 </GenericLayout>

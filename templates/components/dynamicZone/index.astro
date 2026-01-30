@@ -8,10 +8,10 @@ import Testimonials from "@/composites/testimonials/index.astro"
 import CardDisplay from "@/composites/cardDisplay/index.astro"
 
 const { composites } = Astro.props
-
+ 
 ---
 
-    { composites.map((composite) => {
+    { composites && composites.map((composite) => {
 
         const compositeName = composite.__component;
 
