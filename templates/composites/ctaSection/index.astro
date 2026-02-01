@@ -4,21 +4,22 @@ import Anchor from "@/components/anchor/index.astro"
 import Blocks from "@/components/blocks/index.astro"
 import CTAs from "@/components/ctas/index.astro"
 import Media from "@/components/media/index.astro"
+import Composite from "@/components/composite/index.astro"
 
 const { heading, subheading, copy, ctas, media, reverseOrder = false} = Astro.props
 
 ---
 
 
-<section class="relative py-8 md:py-12 lg:py-16 flex">
-    <div class="relative container grid grid-cols-1 auto-rows-auto gap-4 lg:grid-cols-2 lg:items-center gap-8">
+<Composite>
+    <div class="relative grid grid-cols-1 auto-rows-auto gap-4 lg:grid-cols-2 lg:items-center gap-8">
         <div class="flex flex-col justify-start gap-3">
             { subheading && <span> {subheading} </span> }
             
             <h2> {heading} </h2>
 
             { copy && (
-                <Blocks content={copy}/>  
+                <Blocks content={copy} class="text-base lg:text-lg"/>  
             )}
     
             {ctas && ctas.length > 0 && ( <CTAs ctas={ctas} /> )}
@@ -26,10 +27,10 @@ const { heading, subheading, copy, ctas, media, reverseOrder = false} = Astro.pr
             
         </div>
         {media && (
-            <div class={`w-full aspect-5/3 overflow-hidden rounded ${ reverseOrder ? 'lg:order-first' : '' }`}> 
+            <div class={`w-full aspect-video overflow-hidden rounded ${ reverseOrder ? 'lg:order-first' : '' }`}> 
                 <Media media={media} config={{class: "rounded", autoplay: false, controls: true}} />
             </div>
         )}
         
     </div>
-</section>
+</Composite>

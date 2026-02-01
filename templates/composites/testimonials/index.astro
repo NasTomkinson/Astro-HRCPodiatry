@@ -1,45 +1,40 @@
 ---
 import { Swiper, SwiperWrapper, SwiperSlide } from "astro-swiper";
 import Review from "@/components/review/index.astro"
+import Composite from "@/components/composite/index.astro"
 
 const { heading, subheading, reviews} = Astro.props
 
 
 ---
 
-<section class="relative py-8 md:py-12 lg:py-16">
-    <div class="container">
-        <h2> {heading} </h2>
-        { subheading && <p class="subheading"> { subheading } </p> } 
-
-        <div class="mt-6">
-            <Swiper  
-                options={{
-                autoplay: {
-                    delay: 3000
+<Composite heading={heading} subheading={subheading}>
+    <div class="mt-6">
+        <Swiper  
+            options={{
+            autoplay: {
+                delay: 3000
+            },
+            speed: 1000,  
+            loop: true,
+            spaceBetween: 16,
+            breakpoints: {
+                0: {
+                    slidesPerView: 1
                 },
-                speed: 1000,  
-                loop: true,
-                spaceBetween: 16,
-                breakpoints: {
-                    0: {
-                        slidesPerView: 1
-                    },
-                    768: {
-                        slidesPerView: 2
-                    },
-                    1240: {
-                        slidesPerView: 3
-                    }
+                768: {
+                    slidesPerView: 2
+                },
+                1240: {
+                    slidesPerView: 3
                 }
-            }}> 
-                <SwiperWrapper>
-                    { reviews && reviews.map((t) => (
-                        <SwiperSlide> <Review {...t} /> </SwiperSlide> 
-                    ))}
-                </SwiperWrapper>
-            </Swiper>            
-        </div>
-
-    </div>
-</section>
+            }
+        }}> 
+            <SwiperWrapper>
+                { reviews && reviews.map((t) => (
+                    <SwiperSlide> <Review {...t} /> </SwiperSlide> 
+                ))}
+            </SwiperWrapper>
+        </Swiper>            
+    </div> 
+</Composite>

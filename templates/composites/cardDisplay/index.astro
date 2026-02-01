@@ -1,16 +1,47 @@
 ---
 import Composite from "@/components/composite/index.astro"
 import Generic from "@/components/cards/generic.astro" 
-
+import { Swiper, SwiperWrapper, SwiperSlide, SwiperPagination } from "astro-swiper";
 const { heading, subheading, cards} = Astro.props
 
 ---
 
 <Composite heading={heading} subheading={subheading}>
-    <div class="grid grid-cols-1 md:auto-cols-fr md:grid-rows-1 md:grid-flow-col-dense gap-6">
+    <Swiper   
+        options={{
+        autoplay: {
+            delay: 3000
+        },
+        speed: 1000,  
+        loop: true,
+        spaceBetween: 16,
+        pagination: {
+            el: ".swiper-pagination", 
+        },
+        breakpoints: {
+            0: {
+                slidesPerView: 1
+            },
+            768: {
+                slidesPerView: 2
+            },
+            1024: {
+                slidesPerView: 3
+            },
+            1440: {
+                slidesPerView: 4
+            }
+        }
+    }}> 
+        <SwiperWrapper class="flex grow "> 
         { cards.map(card => (
-            <Generic {...card} />
-        ))}
-    </div>   
+            <SwiperSlide class="h-auto!"> 
+                <Generic {...card} />
+            </SwiperSlide>
+        ))} 
+        </SwiperWrapper>
+
+        <SwiperPagination />
+    </Swiper>   
 </Composite>
  
