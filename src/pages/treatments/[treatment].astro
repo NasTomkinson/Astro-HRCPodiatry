@@ -54,7 +54,7 @@ const response = await useStrapi.collection('treatments').find({
 
 const data = response.data[0]
 
-const { title, excerpt, price, duration, thumbnail, composites, bookingUrl } = data;
+const { title, excerpt, price, duration, thumbnail, composites, bestFor } = data;
 
 let durationString = '';
 
@@ -64,8 +64,8 @@ if(duration) {
     const hours = parseInt(h)
     const mins = parseInt(m) 
     
-    if( hours > 1) {
-        durationString += hours > 1 ? `${hours}h ` : `${hours}h `
+    if( hours > 1) { 
+        durationString += hours > 1 ? `${hours}h  ` : `${hours}h `
     }
 
     if( mins >= 1 || hours == 1) {
@@ -76,29 +76,32 @@ if(duration) {
 ---
 
 <GenericLayout >  
-    <div class="container  "> 
+    <div class="container flex flex-col gap-2 mt-2"> 
 
         <div class="relative lg:col-span-2 xl:col-span-3 overflow-hidden flex flex-row">
             <Anchor href={"/treatments"} class="flex justify-center items-center gap-1" icon="mdi:arrow-left-thin" label="Back to treatments" />
         </div>
 
-        <div class="relative lg:col-span-2 xl:col-span-3 has-gradient min-h-[300px] overflow-hidden flex flex-col justify-center items-center text-center p-4 text-white rounded">
+        <div class="relative lg:col-span-2 xl:col-span-3 has-gradient min-h-[200px] md:min-h-[300px] overflow-hidden flex flex-col justify-center items-center text-center p-4 text-white rounded">
             <div class="z-10">
                 <h1> {title} </h1>
             </div>
-            
         </div>
 
-        
-        </div>
-
-        <!-- <aside class="grid-card lg:col-span-2 xl:col-start-3 xl:row-span-2 p-4 flex flex-col justify-start gap-6">
-            <div class="flex flex-col justify-start gap-1">
-                <h2 class="text-2xl! lg:text-3xl!"> Get in touch </h2>
-                <p> We will aim to get in touch with you within 48 hours. </p>
-            </div>
-            <ContactForm defaultTreatment={data.title}/> 
-        </aside> -->
+        <ul class="relative container flex flex-col md:flex-row items-center my-4 divide-y md:divide-y-0 md:divide-x divide-neutral-light py-3 overflow-hidden *:z-10"> 
+            <li class="flex flex-col justify-center items-center gap-0.5 py-3 w-full md:w-1/3"> 
+                <span class="flex text-sm md:text-base items-center gap-1"> <Icon name="mdi:clock-outline" class="w-5 h-5"/> Duration </span>
+                <span class="text-lg md:text-2xl font-semibold"> {durationString} </span>
+            </li>
+            <li class="flex flex-col justify-center items-center gap-0.5 py-3 w-full md:w-1/3"> 
+                <span class="flex text-sm md:text-base items-center gap-1"> <Icon name="mdi:account-star-outline" class="w-5 h-5"/> Best for </span>
+                <span class="text-lg md:text-2xl font-semibold"> {bestFor} </span>
+            </li>
+            <li class="flex flex-col justify-center items-center gap-0.5 py-3 w-full md:w-1/3"> 
+                <span class="flex text-sm md:text-base items-center gap-1"> <Icon name="mdi:tag-outline" class="w-5 h-5"/> Price </span>
+                <span class="text-lg md:text-2xl font-semibold"> £{price} </span>
+            </li>
+        </ul>
     </div>
 
     <DynamicZone composites={composites} />
@@ -108,26 +111,7 @@ if(duration) {
             <div class="relative rounded overflow-hidden has-gradient flex flex-col justify-center items-center py-12">
                 <div class="z-10 text-white flex flex-col justify-center items-center gap-4 ">
                     <h2> Ready to get started? </h2>
-                    <p class="text-xl"> Getting the right treatment that's right for you couldn't be easier. </p>
-                    <ul class="flex flex-row justify-center items-center gap-8">
-                        {price && (
-                            <li class="flex flex-col items-center gap-1">
-                                <span class="uppercase text-sm"> Price </span>
-                                <span  class="flex items-center gap-1 text-2xl">
-                                    <Icon name="mdi:tag-outline" />  £{price} 
-                                </span>
-                            </li>
-                        )}
-                        { (durationString) && 
-                            <li class="flex flex-col items-center gap-1">
-                                <span class="uppercase text-sm"> Duration </span>  
-                                <span  class="flex items-center gap-1 text-2xl"> 
-                                    <Icon name="mdi:clock-outline" /> 
-                                    {durationString} 
-                                </span>
-                            </li>}                         
-                    </ul>
- 
+                    <p class="text-xl text-center px-4"> Getting the right treatment that's right for you couldn't be easier. </p> 
 
                     <Anchor href={"/booking"} variant="primary" label="Book a session"/>
                 </div>
