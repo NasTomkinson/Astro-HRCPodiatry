@@ -105,7 +105,7 @@ button,
 
   &::before {
     content: "";
-    @apply absolute top-0 left-0 w-full h-full bg-gradient-to-r from-primary to-primary-text opacity-50;
+    @apply absolute top-0 left-0 w-full h-full bg-radial-[at_0%_0%]  from-primary-dark to-primary-text opacity-50;
   }
 }
 

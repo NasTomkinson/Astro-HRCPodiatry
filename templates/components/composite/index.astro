@@ -1,12 +1,12 @@
 ---
 
-const { heading, subheading, inline} = Astro.props
+const { heading, subheading, inline,  class: className} = Astro.props
 
 ---
 
 
 <section class="relative py-4 md:py-6 lg:py-10 flex">
-    <div class:list={["container", inline ? 'xl:grid xl:grid-cols-2' : '']}>
+    <div class:list={["container", className,  inline ? 'xl:grid xl:grid-cols-2' : '']}>
         <div class="mb-6"> 
             { heading && <h2> { heading } </h2>}
             { subheading && <span class="subheading"> { subheading } </span>}

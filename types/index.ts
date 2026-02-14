@@ -4,6 +4,7 @@ interface GenericLinkProps {
   variant?: "primary" | "secondary" | "inline" | "nav";
   label: string;
   icon?: string;
+  class?: string;
 }
 
 export interface ButtonProps extends GenericLinkProps{

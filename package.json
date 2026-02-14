@@ -11,15 +11,16 @@
   },
   "dependencies": {
     "@astrojs/node": "^9.5.2",
+    "@iconify-json/ic": "^1.2.4",
+    "@iconify-json/mdi": "^1.2.3",
     "@strapi/client": "^1.6.0",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.16.5",
     "astro-icon": "^1.1.5",
     "astro-swiper": "^1.4.0",
+    "motion": "^12.34.0",
     "tailwindcss": "^4.1.18",
-    "vitest": "^4.0.15",
-    "@iconify-json/ic": "^1.2.4",
-    "@iconify-json/mdi": "^1.2.3"
+    "vitest": "^4.0.15"
   },
   "devDependencies": {
     "husky": "^9.1.7"
