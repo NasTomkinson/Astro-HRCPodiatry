@@ -38,3 +38,15 @@ const { heading, subheading, reviews} = Astro.props
         </Swiper>            
     </div> 
 </Composite>
+
+<script>
+    import { inView, animate, stagger  } from "motion"
+
+    inView(document.querySelector(".swiper-wrapper"), (target) => { 
+        animate(
+            target.querySelectorAll(".swiper-slide"),
+            { opacity: [0, 1]},
+            { duration: 1, delay: stagger(0.05),  easing: "ease-out"}
+        );
+    });
+</script>

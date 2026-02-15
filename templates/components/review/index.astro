@@ -10,7 +10,7 @@ const { title, reviewerName, reviewContent, rating } = Astro.props
  * @param {number} maxWords
  * @returns {string}
  */
-function truncateWords(text, maxWords = 30) {
+function truncateWords(text, maxWords = 20) {
   if (typeof text !== 'string' || !text.trim()) return '';
 
   const words = text.trim().split(/\s+/);

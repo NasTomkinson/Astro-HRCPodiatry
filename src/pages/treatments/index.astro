@@ -23,7 +23,7 @@ const data = response.data
 ---
 
 <GenericLayout>
-    <Hero heading="Our Treatments" class="min-h-[200px]!" />
+    <Hero heading="Our Treatments" class="min-h-[200px] md:min-h-[350px] " />
     <div class="container grid md:grid-cols-[auto_300px] gap-4 my-12 max-w-7xl">
 
         <div class="treatments flex flex-col gap-4">
@@ -53,5 +53,4 @@ const data = response.data
             { duration: 1, delay: stagger(0.1),  easing: "ease-out"}
         );
     });
-
 </script>
