@@ -1,0 +1,63 @@
+---
+
+import GenericLayout from "@/layouts/generic.astro"
+import Anchor from "@/components/anchor/index.astro"
+import Media from "@/components/media/index.astro"
+import Hero from "@/composites/hero/index.astro"
+
+// const iframeURL = Astro.url.searchParams.get('bookingref')! || "https://hrc.setmore.com/book";
+import useStrapi from "@/utils/strapi"
+
+const response = useStrapi.single("booking")
+
+const booking = await response.find({
+  populate: {
+    clinics: {
+        populate: "*"
+    }
+  }
+})
+
+const clinics = booking.data.clinics
+---
+
+<GenericLayout> 
+    <div class="min-h-[800px] flex flex-col justify-center">
+        <div class="container grid grid-cols-1 lg:grid-cols-2 py-12 gap-16"> 
+
+            { clinics && clinics.map(clinic => (
+                <div class="relative grid grid-cols-[3fr_2fr] auto-rows-auto gap-4 group">
+                    <div class="relative col-start-1 col-span-2 flex flex-col justify-center items-center w-full aspect-16/9 md:aspect-3/2 xl:aspect-16/9 text-white rounded  overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-full has-graident overflow-hidden z-10 ">
+                            { clinic?.background && (
+                                
+                                <div class="group-hover:scale-105 transition-all duration-1000 w-full h-full">
+                                    <Media media={clinic?.background} config={{ class: ""}} />
+                                </div>
+                            )}
+                            <div class="z-20 has-gradient w-full h-full absolute top-0 left-0" />             
+                        </div>
+
+                        <div class="relative flex flex-col justify-center items-center gap-1 z-20">
+                            <h2> {clinic?.name} </h2>
+                            <p> {clinic?.copy} </p>
+
+                            <div class="mt-4">
+                                <Anchor label="Book now" variant="primary" href={clinic.bookingUrl} target="_blank"/>
+                            </div>                
+                        </div>
+                    </div>
+
+                    <div class="col-start-1 flex flex-col justify-center items-start w-full">
+                        <h3> How to find us: </h3>               
+                        <Anchor href={clinic.mapUrl} target="_blank" variant="inline" label={clinic.address} class="font-normal!"/>           
+                    </div>
+                    <a href={clinic.mapUrl} target="_blank" class="col-start-2 aspect-2/1 rounded overflow-hidden">
+                        <Media media={clinic.mapImage} />
+                    </a>
+
+                </div>             
+            ))}
+        </div>
+    </div>
+</GenericLayout>

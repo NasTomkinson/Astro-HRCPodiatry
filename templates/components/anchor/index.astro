@@ -2,11 +2,11 @@
 import { Icon } from "astro-icon/components"
 import type { Props } from './types';
 
-const { variant, label, href, icon }: Props = Astro.props;
+const { variant, label, href, icon, target, class: className }: Props = Astro.props;
 
 ---
 
-<a class={`button ${variant}`} aria-label={label} href={href}> 
+<a class={`button ${variant} ${className}`} aria-label={label} href={href} target={target}> 
     { icon && (
        <Icon name={icon} class="w-5 h-5"/> 
     )}

@@ -35,11 +35,19 @@ const homepage = await data.find({
         }
       },
     },
+    seo: {
+      populate: {
+          openGraph: {
+            populate: "*"
+          }
+      }
+    }
   },
 });
+ 
   
 ---
 
-<GenericLayout>
+<GenericLayout seo={homepage?.data?.seo}>
 	<DynamicZone composites={homepage?.data?.composites} />
 </GenericLayout>

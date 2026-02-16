@@ -13,35 +13,42 @@ const response = await useStrapi.collection('pages').find({
         }
     }, 
     populate: {
-    composites: {
-      on: {
-        'composites.hero': {
-          populate: "*",
-        },
-        'composites.cta-section': {
-          populate: "*",
-        },
-        'composites.generic-content': {
-          populate: "*",
-        },
-        'composites.accordions': {
-          populate: "*",
-        },
-        'composites.contact-form': {
-          populate: "*",
-        },
-        'composites.testimonials': {
-          populate: "*", 
-        },
-        'composites.card-display': {
-          populate: { 
-            'cards': {
-              populate: "*"
-            }, 
+      composites: {
+        on: {
+          'composites.hero': {
+            populate: "*",
+          },
+          'composites.cta-section': {
+            populate: "*",
+          },
+          'composites.generic-content': {
+            populate: "*",
+          },
+          'composites.accordions': {
+            populate: "*",
+          },
+          'composites.contact-form': {
+            populate: "*",
+          },
+          'composites.testimonials': {
+            populate: "*", 
+          },
+          'composites.card-display': {
+            populate: { 
+              'cards': {
+                populate: "*"
+              }, 
+            }
           }
-        }
+        },
       },
-    },
+    seo: {
+          populate: {
+              openGraph: {
+                  populate: "*"
+              }
+          }
+      }
   },
 })
 
@@ -49,6 +56,6 @@ const data = response.data[0]
  
 ---
 
-<GenericLayout>
+<GenericLayout seo={data?.seo}>  
     <DynamicZone composites={ data?.composites}/>
 </GenericLayout>

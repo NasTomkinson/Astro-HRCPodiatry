@@ -3,8 +3,14 @@
 import "../styles/global.css"
 import Header from "@/composites/header/index.astro"
 import Footer from "@/composites/footer/index.astro" 
+import { SEO } from "astro-seo";
 import { ClientRouter, fade,  } from "astro:transitions";
 
+const { seo } = Astro.props
+
+const hasOpenGraph =
+  seo?.openGraph &&
+  Object.values(seo.openGraph).some(Boolean); 
 ---
 
 <html lang="en">
@@ -12,8 +18,27 @@ import { ClientRouter, fade,  } from "astro:transitions";
         <meta charset="utf-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title> HRC Podiatry</title>
+        <meta name="generator" content={Astro.generator} /> 
+        <SEO 
+            title={seo?.metaTitle ? `${seo?.metaTitle} | HRC Podiatry` : false}
+            titleDefault="HRC Podiatry"
+            description={ seo?.metaDescription} 
+            {...(hasOpenGraph && {
+                openGraph: {
+                    basic: {
+                        title: seo?.openGraph?.ogTitle,
+                        type: seo?.openGraph?.ogType,
+                        url: seo?.openGraph?.ogUrl,
+                        image: seo?.openGraph?.ogImage?.url,
+                    },
+                    optional: {
+                        description: seo?.openGraph?.ogDescription,
+                    },
+                },
+            })}
+        />      
+        {seo?.keywords && (<meta name="keywords" content={seo?.keywords}>)}
+        
         <ClientRouter />
     </head>
     <body transition:animate={fade({duration:"0.5s"})}> 
