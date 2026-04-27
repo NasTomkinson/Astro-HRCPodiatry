@@ -9,14 +9,14 @@ const { heading, subheading, copy, ctas, media } = Astro.props
 const hasMedia = Boolean(media)
 ---
 
-<section class="py-8 md:py-12 lg:py-16 ">
+<section class="generic-content py-8 md:py-12 lg:py-16 ">
     <div class="container">
         <div class={`relative flex justify-center rounded  overflow-hidden px-12 text-center ${hasMedia ? 'text-white mx-auto py-24' : 'text-primary-text'}`}> 
             <div class="relative flex flex-col gap-1 z-20">
                 <h2> {heading} </h2>
                 <span class="text-xl"> {subheading} </span>
 
-                { copy && (<Blocks class="mt-2 max-w-prose lg:text-xl" content={copy} />)}
+                { copy && (<Blocks class="mt-2 max-w-prose lg:text-xl generic-content-content" content={copy} />)}
                 
 
                 {ctas && ctas.length > 0 && <CTAs class="justify-center" ctas={ctas} />}                

@@ -14,7 +14,7 @@ const { heading, subheading, copy, ctas, media, reverseOrder = false} = Astro.pr
     <Composite>
         <div class="relative grid grid-cols-1 auto-rows-auto gap-4 lg:grid-cols-2 lg:items-center gap-8">
             <div class="cta-section-text flex flex-col justify-start gap-3">
-                { subheading && <span> {subheading} </span> }
+                { subheading && <span class="uppercase font-semibold"> {subheading} </span> }
                 
                 <h2> {heading} </h2>
 
@@ -23,8 +23,7 @@ const { heading, subheading, copy, ctas, media, reverseOrder = false} = Astro.pr
                 )}
         
                 {ctas && ctas.length > 0 && ( <CTAs ctas={ctas} /> )}
-                
-                
+            
             </div>
             {media && (
                 <div class={`cta-section-media w-full aspect-video overflow-hidden rounded ${ reverseOrder ? 'lg:order-first' : '' }`}> 
